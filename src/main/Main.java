@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../view/welcome_screen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/login_welcome_screen.fxml"));
         primaryStage.setTitle("Appointment Software");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.resizableProperty().setValue(false);
     }
