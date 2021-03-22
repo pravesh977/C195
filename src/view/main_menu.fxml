@@ -31,9 +31,9 @@
       </MenuBar>
       <TilePane alignment="CENTER" hgap="20.0" layoutX="23.0" layoutY="38.0" prefHeight="325.0" prefWidth="554.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="107.0" text="Customers" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="107.0" text="Appointments" />
-            <Button layoutX="117.0" layoutY="10.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="107.0" text="Reports" />
+            <Button mnemonicParsing="false" prefHeight="73.0" prefWidth="107.0" text="Customers" onMouseClicked="#navigateToCustomers"/>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="107.0" text="Appointments" onMouseClicked="#navigateToAppointments"/>
+            <Button layoutX="117.0" layoutY="10.0" mnemonicParsing="false" prefHeight="73.0" prefWidth="107.0" text="Reports" onMouseClicked="#navigateToReports"/>
          </children>
       </TilePane>
    </children>
