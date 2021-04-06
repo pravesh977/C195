@@ -17,7 +17,7 @@ public class ReportsScreenController {
         Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        stage.setTitle("Customers");
+        stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
     }

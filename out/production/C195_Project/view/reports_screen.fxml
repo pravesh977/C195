@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsScreenController" />
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsScreenController">
+   <children>
+      <HBox prefHeight="29.0" prefWidth="121.0">
+         <children>
+            <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Home" onMouseClicked="#navigateToMainScreen">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="57.0" style="-fx-background-color: white; -fx-border-color: black;" text="Exit" onAction="#handleExit"/>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
