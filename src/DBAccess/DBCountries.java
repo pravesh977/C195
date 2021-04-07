@@ -12,10 +12,10 @@ import java.sql.SQLException;
 
 public class DBCountries {
 
+    private static ObservableList<Countries> countriesList = FXCollections.observableArrayList();
+
     /** Method to return a list of all Countries from the database*/
     public static ObservableList<Countries> getAllCountries() {
-
-        ObservableList<Countries> countriesList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * FROM countries";
