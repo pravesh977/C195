@@ -11,11 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Customers;
 import utils.DBConnections;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class CustomersScreenController {
 
@@ -105,6 +108,27 @@ public class CustomersScreenController {
             }
         }
         searchCustomerTextField.clear();
+    }
+
+    /***/
+    @FXML
+    public void openAddForm(MouseEvent event) throws IOException {
+        //this opens a new window for a form, i will use a modal instead below
+//        Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+//        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setTitle("Add customer");
+//        stage.setScene(scene);
+//        stage.show();
+
+
+        //Using a modal form instead
+        Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Add New Customer Form");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     /** Handles the exit button*/

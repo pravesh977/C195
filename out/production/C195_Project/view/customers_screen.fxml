@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomersScreenController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomersScreenController">
    <children>
       <TextField fx:id="searchCustomerTextField" layoutX="660.0" layoutY="95.0" onAction="#searchCustomer" prefHeight="27.0" prefWidth="141.0" promptText="Customer Name or ID" />
       <Button layoutX="816.0" layoutY="95.0" mnemonicParsing="false" onAction="#searchCustomer" text="Search" />
       <TableView fx:id="customersTable" layoutX="30.0" layoutY="145.0" prefHeight="315.0" prefWidth="689.0">
+
+          <placeholder>
+              <VBox alignment="CENTER">
+                <Text>Click on the search bar while empty to show full list of Customers.</Text>
+                <Text>Or search Customers using their Name or Id.</Text>
+              </VBox>
+          </placeholder>
         <columns>
-          <TableColumn fx:id="customersColumnId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="customersColumnName" prefWidth="139.0" text="Name" />
+            <TableColumn fx:id="customersColumnId" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="customersColumnName" prefWidth="139.0" text="Name" />
             <TableColumn fx:id="customersColumnAddress" prefWidth="115.0" text="Address" />
             <TableColumn fx:id="customersColumnPostal" prefWidth="90.0" text="Postal" />
             <TableColumn fx:id="customersColumnPhone" prefWidth="104.0" text="Phone" />
@@ -29,7 +31,7 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="801.0" layoutY="199.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Add" />
+      <Button layoutX="801.0" layoutY="199.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Add" onMouseClicked="#openAddForm"/>
       <Button layoutX="801.0" layoutY="252.0" mnemonicParsing="false" text="Update" />
       <Button layoutX="801.0" layoutY="300.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Delete" />
       <HBox layoutY="-3.0" prefHeight="27.0" prefWidth="134.0">
