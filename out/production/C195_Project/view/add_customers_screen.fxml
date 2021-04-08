@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomersController">
+<AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomersController">
    <children>
       <Label layoutX="207.0" layoutY="14.0" text="Add New Customer">
          <font>
@@ -71,7 +71,7 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="divisionComboBox" layoutX="80.0" layoutY="235.0" prefWidth="150.0" onAction="#divisionExperiment"/>
+            <ComboBox fx:id="divisionComboBox" layoutX="80.0" layoutY="235.0" prefWidth="150.0" />
             <ComboBox fx:id="countryComboBox" layoutX="279.0" layoutY="235.0" onAction="#countryComboBoxValueChange" prefWidth="150.0" />
          </children>
       </AnchorPane>

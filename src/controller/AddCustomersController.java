@@ -1,19 +1,26 @@
 package controller;
 
 import DBAccess.DBCountries;
+import DBAccess.DBCustomers;
 import DBAccess.DBFirstLevelDivision;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Countries;
+import model.Customers;
 import model.FirstLevelDivisions;
 import utils.DBConnections;
+
+import java.io.IOException;
 
 public class AddCustomersController {
 
@@ -52,13 +59,33 @@ public class AddCustomersController {
 
     /** Handles the save button and sends data to to the database.*/
     @FXML
-    public void saveNewCustomerClicked() {
+    public void saveNewCustomerClicked(MouseEvent event) throws IOException {
+        int id = 0;
         String name = nameTextField.getText();
         String address = addressTextField.getText();
         String postal = postalTextField.getText();
         String phone = phoneTextField.getText();
         //System.out.println("text field name is " + name);
+        int divisionId = divisionComboBox.getValue().getDivisionId();
+        String divisionName = divisionComboBox.getValue().getDivisionName();
+        Customers newCustomer = new Customers(id, name, address, postal, phone, divisionId, divisionName);
+        DBCustomers.addNewCustomer(newCustomer);
 
+
+        //add alerter saying add successful and button to add appointment in the same alerter
+        // how to refresh table to show new customer? call function from another file how?
+
+//        try {
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("../view/customers_screen.fxml"));
+//            loader.load();
+//
+//            CustomersScreenController customerUpdate = loader.getController();
+//            customerUpdate.searchCustomer();
+//        }
+//        catch(RuntimeException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     /** Tracks the change in Country ComboBox values and filters divisions values in divisions ComboBox*/

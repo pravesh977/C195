@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomersController">
+<AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateCustomersController">
    <children>
-      <Label layoutX="207.0" layoutY="14.0" text="Add New Customer">
+      <Label layoutX="207.0" layoutY="14.0" text="Update New Customer">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
@@ -72,10 +76,10 @@
                </font>
             </Label>
             <ComboBox fx:id="divisionComboBox" layoutX="80.0" layoutY="235.0" prefWidth="150.0" />
-            <ComboBox fx:id="countryComboBox" layoutX="279.0" layoutY="235.0" onAction="#countryComboBoxValueChange" prefWidth="150.0" />
+            <ComboBox fx:id="countryComboBox" layoutX="279.0" layoutY="235.0" prefWidth="150.0" onAction="#countryComboBoxValueChange" />
          </children>
       </AnchorPane>
-      <Button layoutX="423.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#saveNewCustomerClicked" prefHeight="27.0" prefWidth="57.0" text="Save" />
-      <Button layoutX="492.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#cancelSaveButtonClicked" text="Cancel" />
+      <Button layoutX="416.0" layoutY="382.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="Update" />
+      <Button layoutX="492.0" layoutY="382.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="64.0" text="Cancel" onMouseClicked="#cancelUpdateButton"/>
    </children>
 </AnchorPane>

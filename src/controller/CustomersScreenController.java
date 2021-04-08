@@ -58,15 +58,15 @@ public class CustomersScreenController {
     }
 
 
-//    public void initialize() {
-//        customersTable.setItems(DBCustomers.getAllCustomers());
-//        customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-//        customersColumnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-//        customersColumnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-//        customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
-//        customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
-//        customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
-//    }
+    public void initialize() {
+        customersTable.setItems(DBCustomers.getAllCustomers());
+        customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customersColumnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customersColumnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+        customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+    }
 
 
 
@@ -106,6 +106,7 @@ public class CustomersScreenController {
                 customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
                 customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
             }
+            System.out.println("search called");
         }
         searchCustomerTextField.clear();
     }
@@ -128,6 +129,24 @@ public class CustomersScreenController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add New Customer Form");
         stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    public void updateCustomerButtonClicked(MouseEvent event) throws IOException {
+        //FIX Me add nullpointer exception catcher for updating without selecting
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/update_customers_screen.fxml"));
+        loader.load();
+
+        UpdateCustomersController updateCustomerCont = loader.getController();
+
+        Customers selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
+        updateCustomerCont.populateUpdateForm(selectedCustomer);
+
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 
