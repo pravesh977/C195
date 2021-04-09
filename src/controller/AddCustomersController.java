@@ -24,6 +24,9 @@ import java.io.IOException;
 
 public class AddCustomersController {
 
+    Stage stage;
+    Parent scene;
+
     @FXML
     private TextField nameTextField;
 
@@ -46,11 +49,12 @@ public class AddCustomersController {
     /** Initializes the opening form and sets ComboBox with database values*/
     @FXML
     public void initialize() {
-
+        divisionComboBox.getItems().clear();
         divisionComboBox.setItems(DBFirstLevelDivision.getAllFirstLevelDivisions());
         divisionComboBox.setPromptText("Choose Division");
         divisionComboBox.setVisibleRowCount(5);
 
+        countryComboBox.getItems().clear();
         countryComboBox.setItems(DBCountries.getAllCountries());
         countryComboBox.setPromptText("Choose Country");
         countryComboBox.setVisibleRowCount(5);
@@ -70,6 +74,25 @@ public class AddCustomersController {
         String divisionName = divisionComboBox.getValue().getDivisionName();
         Customers newCustomer = new Customers(id, name, address, postal, phone, divisionId, divisionName);
         DBCustomers.addNewCustomer(newCustomer);
+
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("../view/customers_screen.fxml"));
+//        loader.load();
+//
+//        CustomersScreenController custCont = loader.getController();
+//        custCont.loadCustomerTable();
+
+//use this if not modal
+//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
+//        stage.setScene(new Scene(scene));
+//        stage.show();
+
+        //use this to close the modal when using modal
+        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        stage.close();
+
+
 
 
         //add alerter saying add successful and button to add appointment in the same alerter
@@ -105,9 +128,14 @@ public class AddCustomersController {
      * Cancels the save and closes the save customer form.
      */
     @FXML
-    public void cancelSaveButtonClicked(MouseEvent event) {
+    public void cancelSaveButtonClicked(MouseEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
+
+//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
+//        stage.setScene(new Scene(scene));
+//        stage.show();
     }
 
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import DBAccess.DBCustomers;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class CustomersScreenController {
+    Stage stage;
+    Parent scene;
 
     @FXML
     private TableView<Customers> customersTable;
@@ -49,11 +52,17 @@ public class CustomersScreenController {
     /** Handles the Main Menu button and switches the window to Main Screen. */
     @FXML
     public void navigateToMainScreen(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+//        Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
+//        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setTitle("Main Menu");
+//        stage.setScene(scene);
+//        stage.show();
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
         stage.setTitle("Main Menu");
-        stage.setScene(scene);
+        stage.setScene(new Scene(scene));
         stage.show();
     }
 
@@ -66,8 +75,19 @@ public class CustomersScreenController {
         customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+        System.out.println("customer table initialized :(");
     }
 
+
+    public void loadCustomerTable() {
+        customersTable.setItems(DBCustomers.getAllCustomers());
+        customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customersColumnName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customersColumnAddress.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+        customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+        customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+    }
 
 
     /** Handles the search button and the enter button for search customer.*/
@@ -130,6 +150,11 @@ public class CustomersScreenController {
         stage.setTitle("Add New Customer Form");
         stage.setScene(new Scene(root));
         stage.show();
+
+//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        scene = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+//        stage.setScene(new Scene(scene));
+//        stage.show();
     }
 
     @FXML
@@ -144,10 +169,24 @@ public class CustomersScreenController {
         Customers selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
         updateCustomerCont.populateUpdateForm(selectedCustomer);
 
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
+//        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        Parent scene = loader.getRoot();
+//        stage.setScene(new Scene(scene));
+//        stage.show();
+
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+
+    @FXML
+    public void deleteSelectedCustomer() {
+        Customers selectedCustomerForDeletion = customersTable.getSelectionModel().getSelectedItem();
+        DBCustomers.deleteCustomer(selectedCustomerForDeletion.getCustomerId());
+        loadCustomerTable();
+
     }
 
     /** Handles the exit button*/

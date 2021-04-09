@@ -12,12 +12,12 @@ import java.sql.SQLException;
 
 public class DBCustomers {
 
-    private static ObservableList<Customers> customersList = FXCollections.observableArrayList();
+    //This was duplicating everything in my customer list?
+    //private static ObservableList<Customers> customersList = FXCollections.observableArrayList();
 
     /** Method to look up customers using customer Id.*/
     public static ObservableList<Customers> getAllCustomers() {
-
-        ObservableList<Customers> searchedSingleCustomer = FXCollections.observableArrayList();
+        ObservableList<Customers> customersList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Division_ID, Division FROM customers INNER JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
@@ -129,7 +129,7 @@ public class DBCustomers {
         }
     }
 
-    public static void updateCustomer(Customers passedCustomer, int id) {
+    public static void updateCustomer(int id, Customers passedCustomer) {
         try {
             String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
@@ -138,11 +138,26 @@ public class DBCustomers {
             ps.setString(3, passedCustomer.getCustomerPostalCode());
             ps.setString(4, passedCustomer.getCustomerPhone());
             ps.setInt(5,passedCustomer.getDivisionId());
+            ps.setInt(6, id);
 
             ps.executeUpdate();
 
         } catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void deleteCustomer(int customerId) {
+        try {
+            String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+            PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+            ps.setInt(1, customerId);
+
+            ps.executeUpdate();
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

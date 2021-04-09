@@ -12,14 +12,16 @@ import java.sql.SQLException;
 
 public class DBFirstLevelDivision {
 
-    private static ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
-    private static ObservableList<FirstLevelDivisions> filteredFirstLevelDivisions = FXCollections.observableArrayList();
+//    private static ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
+//    private static ObservableList<FirstLevelDivisions> filteredFirstLevelDivisions = FXCollections.observableArrayList();
 
     //private static ComboBox<FirstLevelDivisions> allFirstLevelDivisions = new ComboBox();
 
     /** Returns all first level divisions.*/
     public static ObservableList<FirstLevelDivisions> getAllFirstLevelDivisions() {
         //public static ComboBox<FirstLevelDivisions> getAllFirstLevelDivisions() {
+
+        ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * FROM first_level_divisions";
@@ -41,6 +43,8 @@ public class DBFirstLevelDivision {
 
     /** Returns selected first level divisions by using the Country Id.*/
     public static ObservableList<FirstLevelDivisions> getFilteredDivisions(int countryComboBoxValue) {
+        ObservableList<FirstLevelDivisions> filteredFirstLevelDivisions = FXCollections.observableArrayList();
+
         //System.out.println("passed country id is : " + countryComboBoxValue);
         try {
             String sql = "SELECT * FROM first_level_divisions WHERE Country_ID = ?";
