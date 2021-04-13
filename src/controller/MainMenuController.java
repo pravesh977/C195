@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,20 @@ import java.io.IOException;
 
 
 public class MainMenuController {
+    @FXML
+    public void navigateToMainScreen(ActionEvent event) throws IOException {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../view/main_screen.fxml"));
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 900, 600);
+            stage.setTitle("Main Screen");
+            stage.setScene(scene);
+            stage.show();
+        } catch(NullPointerException e) {
+
+        }
+    }
 
     /** Handles the Customers button and switches the window to Customers Screen. */
     @FXML

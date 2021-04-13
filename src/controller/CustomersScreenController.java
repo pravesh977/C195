@@ -66,7 +66,6 @@ public class CustomersScreenController {
         stage.show();
     }
 
-
     public void initialize() {
         customersTable.setItems(DBCustomers.getAllCustomers());
         customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -75,7 +74,6 @@ public class CustomersScreenController {
         customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
-        System.out.println("customer table initialized :(");
     }
 
 
@@ -87,6 +85,7 @@ public class CustomersScreenController {
         customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+        System.out.println("loaded bud");
     }
 
 
@@ -186,7 +185,6 @@ public class CustomersScreenController {
         Customers selectedCustomerForDeletion = customersTable.getSelectionModel().getSelectedItem();
         DBCustomers.deleteCustomer(selectedCustomerForDeletion.getCustomerId());
         loadCustomerTable();
-
     }
 
     /** Handles the exit button*/

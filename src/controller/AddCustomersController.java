@@ -82,15 +82,18 @@ public class AddCustomersController {
 //        CustomersScreenController custCont = loader.getController();
 //        custCont.loadCustomerTable();
 
-//use this if not modal
-//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//        scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
-//        stage.setScene(new Scene(scene));
-//        stage.show();
+    //use this if not modal
+    //        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+    //        scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
+    //        stage.setScene(new Scene(scene));
+    //        stage.show();
 
         //use this to close the modal when using modal
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         stage.close();
+
+
+
 
 
 
@@ -122,6 +125,7 @@ public class AddCustomersController {
 //            System.out.println("divisions are : " + element.getDivisionName());
 //        }
         divisionComboBox.setItems(filteredDivision);
+        divisionComboBox.getSelectionModel().selectFirst();
     }
 
     /**

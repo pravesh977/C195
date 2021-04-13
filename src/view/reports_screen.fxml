@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -9,7 +12,7 @@
    <children>
       <HBox prefHeight="29.0" prefWidth="121.0">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Home" onMouseClicked="#navigateToMainScreen">
+            <Button mnemonicParsing="false" onMouseClicked="#navigateToMainScreen" style="-fx-background-color: white; -fx-border-color: black;" text="Home">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -17,8 +20,28 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="57.0" style="-fx-background-color: white; -fx-border-color: black;" text="Exit" onAction="#handleExit"/>
+            <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="27.0" prefWidth="57.0" style="-fx-background-color: white; -fx-border-color: black;" text="Exit" />
          </children>
       </HBox>
+      <MenuBar layoutX="141.0" layoutY="162.0" prefHeight="29.0" prefWidth="142.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#openmainpage" text="open page" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

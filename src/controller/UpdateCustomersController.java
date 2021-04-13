@@ -136,6 +136,7 @@ public class UpdateCustomersController {
         int selectedCountryId = countryComboBox.getValue().getCountryId();
         ObservableList<FirstLevelDivisions> filteredDivision = DBFirstLevelDivision.getFilteredDivisions(selectedCountryId);
         divisionComboBox.setItems(filteredDivision);
+        divisionComboBox.getSelectionModel().selectFirst();
     }
 
     @FXML

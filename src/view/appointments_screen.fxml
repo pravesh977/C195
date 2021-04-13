@@ -2,20 +2,69 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentsScreenController">
+<AnchorPane prefHeight="597.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentsScreenController">
    <children>
       <HBox prefHeight="29.0" prefWidth="111.0">
          <children>
-            <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: black;" text="Home" onMouseClicked="#navigateToMainScreen">
+            <Button mnemonicParsing="false" onMouseClicked="#navigateToMainScreen" style="-fx-background-color: white; -fx-border-color: black;" text="Home">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="47.0" style="-fx-background-color: white; -fx-border-color: black;" text="Exit" onAction="#handleExit"/>
+            <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="27.0" prefWidth="47.0" style="-fx-background-color: white; -fx-border-color: black;" text="Exit" />
          </children>
       </HBox>
+      <TabPane layoutX="31.0" layoutY="42.0" prefHeight="503.0" prefWidth="1104.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="tab1" onSelectionChanged="#tab1selected" text="All Appointments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="673.0">
+                     <children>
+                        <TableView fx:id="fullAppointmentTable" layoutX="14.0" layoutY="14.0" prefHeight="401.0" prefWidth="1081.0">
+                          <columns>
+                            <TableColumn fx:id="appIdCol" prefWidth="38.0" text="ID" />
+                            <TableColumn fx:id="appTitleCol" prefWidth="82.0" text="Title" />
+                              <TableColumn fx:id="appDescriptionCol" prefWidth="169.0" text="Description" />
+                              <TableColumn fx:id="appLocationCol" prefWidth="87.0" text="Location" />
+                              <TableColumn fx:id="appContactCol" prefWidth="95.0" text="Contact" />
+                              <TableColumn fx:id="appTypeCol" prefWidth="82.0" text="Type" />
+                              <TableColumn fx:id="appStartCol" prefWidth="132.0" text="Start" />
+                              <TableColumn fx:id="appEndCol" prefWidth="142.0" text="End" />
+                              <TableColumn fx:id="appCustomerCol" prefWidth="141.0" text="Customer" />
+                              <TableColumn fx:id="appUserCol" prefWidth="97.0" text="User" />
+                          </columns>
+                        </TableView>
+                        <Button layoutX="354.0" layoutY="429.0" mnemonicParsing="false" prefWidth="60.0" onMouseClicked="#addNewAppointment" text="Add" />
+                        <Button layoutX="447.0" layoutY="429.0" mnemonicParsing="false" text="Update" />
+                        <Button layoutX="533.0" layoutY="429.0" mnemonicParsing="false" text="Delete" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="tab2" onSelectionChanged="#tab2selected" text="Weekly Appointments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="122.0" layoutY="55.0" text="TAB 2" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="tab3" onSelectionChanged="#tab3selected" text="Monthly Appointments">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="450.0" layoutY="172.0" text="MY tab 3" />
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
