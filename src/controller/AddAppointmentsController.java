@@ -7,8 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Contacts;
@@ -16,8 +15,30 @@ import model.Customers;
 import model.Users;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 public class AddAppointmentsController {
+
+    @FXML
+    private TextField appointmentTitleTextField;
+
+    @FXML
+    private TextArea appointmentDescriptionTextArea;
+
+    @FXML
+    private TextField appointmentLocationTextField;
+
+    @FXML
+    private TextField appointmentTypeTextField;
+
+    @FXML
+    private DatePicker appointmentDatePicker;
+
+    @FXML
+    private ComboBox<Timestamp> startComboBox;
+
+    @FXML
+    private ComboBox<Timestamp> endComboBox;
 
     @FXML
     private ComboBox<Contacts> contactComboBox;
@@ -46,6 +67,24 @@ public class AddAppointmentsController {
         userComboBox.setItems(DBUsers.getAllUsers());
         userComboBox.setPromptText("Choose User");
         userComboBox.setVisibleRowCount(5);
+    }
+
+    public void saveNewAppointment() {
+        int id = 0;
+        String title = appointmentTitleTextField.getText();
+        String description = appointmentDescriptionTextArea.getText();
+//        String location = appointmentLocationTextField.getText();
+//        String type = appointmentTypeTextField.getText();
+//        Timestamp startTime = startComboBox.getValue();
+//        Timestamp endTime = startComboBox.getValue();
+//        int customerId = customerComboBox.getValue().getCustomerId();
+//        int userId = userComboBox.getValue().getUserId();
+//        int contactId = contactComboBox.getValue().getContactId();
+
+        System.out.println("title is " + title);
+        System.out.println("description is " + description);
+        //System.out.println("Start time is " + startTime);
+
     }
 
     /** Handles the cancel button and returns to the appointment screen.*/

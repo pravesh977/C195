@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="588.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointmentsController">
+<AnchorPane prefHeight="588.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointmentsController">
     <children>
         <Label layoutX="198.0" layoutY="3.0" text="Add New Appointment">
             <font>
                 <Font name="Arial Bold" size="20.0" />
             </font>
         </Label>
-        <Button layoutX="413.0" layoutY="546.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="63.0" text="Save" />
+        <Button layoutX="413.0" layoutY="546.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="63.0" text="Save" onMouseClicked="#saveNewAppointment"/>
         <Button layoutX="505.0" layoutY="546.0" mnemonicParsing="false" onMouseClicked="#cancelAddAppointment" prefHeight="27.0" prefWidth="63.0" text="Cancel" />
       <VBox alignment="CENTER_LEFT" layoutX="297.0" layoutY="45.0" prefHeight="429.0" prefWidth="215.0" spacing="10.0">
          <children>

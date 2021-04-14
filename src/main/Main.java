@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import model.Countries;
 import utils.DBConnections;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Main extends Application {
@@ -27,11 +29,18 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DBConnections.startConnection();
+//        LocalTime newTime = LocalTime.now();
+//        System.out.println(newTime);
+//        System.out.println(LocalDateTime.now());
+//        System.out.println(DBAppointments.getAllAppointments().get(0).getStartTime().toLocalDateTime() + " converted");
+//System.out.println(DBAppointments.getAllAppointments().get(0).getStartTime());
 
         //System.out.println(DBCountries.getAllCountries().get(2).getCountryName());
 //        System.out.println(DBAppointments.getAllAppointments().get(0).getDescription());
+//        LocalDateTime newlocaldatetime = DBAppointments.getAllAppointments().get(0).getStartTime().toLocalDateTime();
 //        System.out.println(DBAppointments.getAllAppointments().get(0).getStartTime());
-//        System.out.println(DBContacts.getAllContacts().get(0).getContactEmail());
+//        System.out.println(DBAppointments.getAllAppointments().get(0).getStartTime().toLocalDateTime());
+//        System.out.println(DBContacts.getAllContacts().get(1).getContactEmail());
         launch(args);
         DBConnections.closeConnection();
     }

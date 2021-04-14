@@ -42,7 +42,7 @@
                               <TableColumn fx:id="appUserCol" prefWidth="97.0" text="User" />
                           </columns>
                         </TableView>
-                        <Button layoutX="354.0" layoutY="429.0" mnemonicParsing="false" prefWidth="60.0" onMouseClicked="#addNewAppointment" text="Add" />
+                        <Button layoutX="354.0" layoutY="429.0" mnemonicParsing="false" prefWidth="60.0" onMouseClicked="#openAddAppointmentForm" text="Add" />
                         <Button layoutX="447.0" layoutY="429.0" mnemonicParsing="false" text="Update" />
                         <Button layoutX="533.0" layoutY="429.0" mnemonicParsing="false" text="Delete" />
                      </children></AnchorPane>

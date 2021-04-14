@@ -96,7 +96,7 @@ public class AppointmentsScreenController {
 
     }
 
-    public void addNewAppointment(MouseEvent event) throws IOException {
+    public void openAddAppointmentForm(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/add_appointments_screen.fxml"));
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
