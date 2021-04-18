@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="463.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateCustomersController">
    <children>
-      <Label layoutX="207.0" layoutY="14.0" text="Update New Customer">
+      <Label layoutX="207.0" layoutY="14.0" text="Update Customer">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>

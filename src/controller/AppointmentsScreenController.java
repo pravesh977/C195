@@ -13,6 +13,7 @@ import model.Appointments;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class AppointmentsScreenController {
 
@@ -38,10 +39,10 @@ public class AppointmentsScreenController {
     private TableColumn<Appointments, String> appTypeCol;
 
     @FXML
-    private TableColumn<Appointments, Timestamp> appStartCol;
+    private TableColumn<Appointments, LocalDateTime> appStartCol;
 
     @FXML
-    private TableColumn<Appointments, Timestamp> appEndCol;
+    private TableColumn<Appointments, LocalDateTime> appEndCol;
 
     @FXML
     private TableColumn<Appointments, String> appCustomerCol;
@@ -96,6 +97,7 @@ public class AppointmentsScreenController {
 
     }
 
+    /** Opens a new form to let users create a new appointment*/
     public void openAddAppointmentForm(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/add_appointments_screen.fxml"));
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -103,6 +105,31 @@ public class AppointmentsScreenController {
         stage.setTitle("Add Appointment Form");
         stage.setScene(scene);
         stage.show();
+    }
+
+    /** opens a form to let users update selected appointment by passing selected appointment to updateAppointmentController*/
+    public void openUpdateAppointmentForm(MouseEvent event) throws IOException {
+        //FIX Me add nullpointer exception catcher for updating without selecting
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/update_appointments_screen.fxml"));
+        loader.load();
+
+        UpdateAppointmentsController updateAppointmentCont = loader.getController();
+
+        Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
+        updateAppointmentCont.populateAppointmentForm(selectedAppointment);
+
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    /** Deletes the selected appointment from the appointment table by passing it to DBAppointments*/
+    public void deleteAppointment() {
+        Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
+        DBAppointments.deleteSelectedAppointment(selectedAppointment.getAppointmentId());
+        initialize();
     }
 
     /** Handles the exit button*/

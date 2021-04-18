@@ -11,8 +11,8 @@ public class Appointments {
     private String description;
     private String location;
     private String type;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int customerId;
     private String customerName;
     private int userId;
@@ -21,7 +21,7 @@ public class Appointments {
     private String contactName;
 
 
-    public Appointments(int appointmentId, String title, String description, String location, String type, Timestamp startTime, Timestamp endTime, int customerId, String customerName, int userId, String userName, int contactId, String contactName) {
+    public Appointments(int appointmentId, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, String customerName, int userId, String userName, int contactId, String contactName) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
@@ -77,19 +77,19 @@ public class Appointments {
         this.type = type;
     }
 
-    public Timestamp getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public Timestamp getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 

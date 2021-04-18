@@ -129,7 +129,7 @@ public class DBCustomers {
         }
     }
 
-    public static void updateCustomer(int id, Customers passedCustomer) {
+    public static void updateCustomer(Customers passedCustomer) {
         try {
             String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
@@ -138,7 +138,7 @@ public class DBCustomers {
             ps.setString(3, passedCustomer.getCustomerPostalCode());
             ps.setString(4, passedCustomer.getCustomerPhone());
             ps.setInt(5,passedCustomer.getDivisionId());
-            ps.setInt(6, id);
+            ps.setInt(6, passedCustomer.getCustomerId());
 
             ps.executeUpdate();
 

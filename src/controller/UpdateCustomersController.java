@@ -48,12 +48,12 @@ public class UpdateCustomersController {
 
     @FXML
     public void initialize() {
-        divisionComboBox.getItems().clear();
+        //divisionComboBox.getItems().clear();
         divisionComboBox.setItems(DBFirstLevelDivision.getAllFirstLevelDivisions());
         divisionComboBox.setPromptText("Choose Division");
         divisionComboBox.setVisibleRowCount(5);
 
-        countryComboBox.getItems().clear();
+        //countryComboBox.getItems().clear();
         countryComboBox.setItems(DBCountries.getAllCountries());
         countryComboBox.setPromptText("Choose Country");
         countryComboBox.setVisibleRowCount(5);
@@ -71,7 +71,7 @@ public class UpdateCustomersController {
         System.out.println(passedDivisionId);
         int countryId = 0;
 
-        for(FirstLevelDivisions element : DBFirstLevelDivision.getAllFirstLevelDivisions()) {
+        for(FirstLevelDivisions element : divisionComboBox.getItems()) {
             if (passedDivisionId == element.getDivisionId()) {
                 //System.out.println("match found at " + element.getDivisionId());
                 countryId = element.getCountryId();
@@ -81,12 +81,29 @@ public class UpdateCustomersController {
             }
         }
 
-        for(Countries element : DBCountries.getAllCountries()) {
+        for(Countries element : countryComboBox.getItems()) {
             if (countryId == element.getCountryId()) {
                 countryComboBox.getSelectionModel().select(element);
                 break;
             }
         }
+//
+//        for(FirstLevelDivisions element : DBFirstLevelDivision.getAllFirstLevelDivisions()) {
+//            if (passedDivisionId == element.getDivisionId()) {
+//                //System.out.println("match found at " + element.getDivisionId());
+//                countryId = element.getCountryId();
+//                //divisionComboBox.setValue(DBFirstLevelDivision.getAllFirstLevelDivisions().get(1));
+//                divisionComboBox.getSelectionModel().select(element);
+//                break;
+//            }
+//        }
+//
+//        for(Countries element : DBCountries.getAllCountries()) {
+//            if (countryId == element.getCountryId()) {
+//                countryComboBox.getSelectionModel().select(element);
+//                break;
+//            }
+//        }
 
 
 
@@ -106,7 +123,7 @@ public class UpdateCustomersController {
     }
 
     public void updateCustomer(MouseEvent event) throws IOException {
-        int id = 0;
+        int id = Integer.parseInt(customerIdLabel.getText());
         String name = nameTextField.getText();
         String address = addressTextField.getText();
         String postal = postalTextField.getText();
@@ -115,7 +132,7 @@ public class UpdateCustomersController {
         int divisionId = divisionComboBox.getValue().getDivisionId();
         String divisionName = divisionComboBox.getValue().getDivisionName();
         Customers updateThisCustomer = new Customers(id, name, address, postal, phone, divisionId, divisionName);
-        DBCustomers.updateCustomer(Integer.parseInt(customerIdLabel.getText()), updateThisCustomer);
+        DBCustomers.updateCustomer(updateThisCustomer);
         //System.out.println(customerIdLabel.getText() + " id passed?");
 
 //        Parent root = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
