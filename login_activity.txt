@@ -6,3 +6,11 @@ Successful login by username: admin
 Activity on: 2021-04-20T12:41:59.863613Z UTC.
 111SUCCESS
 ------------------------------------------------------
+Unsuccessful login attempted by username: darthvader  f ere
+Activity on: 2021-04-20T12:54:24.932411Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: candydr
+Activity on: 2021-04-20T12:55:52.862405Z UTC.
+999FAIL
+------------------------------------------------------

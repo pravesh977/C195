@@ -34,8 +34,8 @@ public class LoginWelcomeScreenController {
     public void loginClicked(MouseEvent event) throws IOException {
         //FIXME: handle user name and password entered, show error
 
-        String userNameString = userNameTextField.getText();
-        String passwordString = userPasswordField.getText();
+        String userNameString = userNameTextField.getText().trim();
+        String passwordString = userPasswordField.getText().trim();
 
         //Creating a text file to log login activities
 
@@ -45,9 +45,11 @@ public class LoginWelcomeScreenController {
 
         Users loggedUser = DBUsers.loginUser(userNameString, passwordString);
         if (loggedUser == null) {
+            AlertMessageController.failedLoginError();
             outputFile.println("Unsuccessful login attempted by username: " + userNameString);
             outputFile.println("Activity on: " + Instant.now() + " UTC.");
             outputFile.println("999FAIL");
+            userPasswordField.clear();
         } else {
             System.out.println(loggedUser.getUserId() + " is the id" + loggedUser.getUserName() + " is the username");
             Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
@@ -63,6 +65,8 @@ public class LoginWelcomeScreenController {
         outputFile.println("------------------------------------------------------");
         outputFile.close();
 
+//        System.out.println(userNameString + "without trim");
+//        System.out.println(userNameString.trim() + "with trim");
 
     }
 

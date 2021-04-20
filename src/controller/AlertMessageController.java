@@ -47,4 +47,12 @@ public class AlertMessageController {
         errorAlert.setContentText("Field cannot be empty");
         errorAlert.showAndWait();
     }
+
+    public static void failedLoginError() {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Login Failed");
+        errorAlert.setContentText("Please make sure the Username and Password are correct");
+        errorAlert.showAndWait();
+    }
+
 }
