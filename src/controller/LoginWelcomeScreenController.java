@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class LoginWelcomeScreenController {
 
@@ -26,6 +29,30 @@ public class LoginWelcomeScreenController {
     @FXML
     private PasswordField userPasswordField;
 
+    @FXML
+    private Label usernameLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Button exitButton;
+
+
+
+    @FXML
+    public void initialize() {
+        ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
+        if(Locale.getDefault().getLanguage().equals("fr")) {
+            usernameLabel.setText(resBundle.getString("username"));
+            passwordLabel.setText(resBundle.getString("password"));
+            loginButton.setText(resBundle.getString("login"));
+            exitButton.setText(resBundle.getString("exit"));
+        }
+    }
 
     /**
      * Handles the login button and switches the window to main page.

@@ -32,6 +32,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnections.startConnection();
 
+
+//        System.out.println(Locale.getDefault());
         //System.out.println(Instant.now() + "CURRENT UtC TIME Is");
         //TimeZoneConversion.utcToLocal();
     //    TimeZoneConversion.displayUtc();

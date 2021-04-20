@@ -2,6 +2,9 @@ package controller;
 
 import javafx.scene.control.Alert;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class AlertMessageController {
 
     public static void beforeBusinessHoursError() {
@@ -50,8 +53,14 @@ public class AlertMessageController {
 
     public static void failedLoginError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setTitle("Login Failed");
-        errorAlert.setContentText("Please make sure the Username and Password are correct");
+        ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
+        if(Locale.getDefault().getLanguage().equals("fr")) {
+            errorAlert.setTitle(resBundle.getString("loginfailed"));
+            errorAlert.setContentText(resBundle.getString("checkcredentials"));
+        } else {
+            errorAlert.setTitle("Login Failed");
+            errorAlert.setContentText("Please make sure the Username and Password are correct");
+        }
         errorAlert.showAndWait();
     }
 

@@ -14,3 +14,67 @@ Unsuccessful login attempted by username: candydr
 Activity on: 2021-04-20T12:55:52.862405Z UTC.
 999FAIL
 ------------------------------------------------------
+Unsuccessful login attempted by username: test
+Activity on: 2021-04-20T23:09:29.985536Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: test
+Activity on: 2021-04-20T23:09:37.519992Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-20T23:09:40.305158Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: lkjisd
+Activity on: 2021-04-20T23:10:31.123222Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-20T23:10:36.360160Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: test
+Activity on: 2021-04-20T23:25:31.941333Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: test
+Activity on: 2021-04-20T23:25:41.984326Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: test
+Activity on: 2021-04-20T23:26:00.392315Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: ejrie
+Activity on: 2021-04-20T23:26:11.218757Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-20T23:26:16.110112Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: meriijif
+Activity on: 2021-04-20T23:26:52.684534Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-04-20T23:27:24.948688Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-04-20T23:27:35.291200Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-04-20T23:27:43.831469Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-04-20T23:27:50.606456Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-20T23:27:53.301413Z UTC.
+111SUCCESS
+------------------------------------------------------
