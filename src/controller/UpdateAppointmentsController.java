@@ -15,8 +15,11 @@ import model.Appointments;
 import model.Contacts;
 import model.Customers;
 import model.Users;
+import utils.TimeZoneConversion;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,9 +34,6 @@ public class UpdateAppointmentsController {
 
     @FXML
     private TextField appointmentLocationTextField;
-
-    @FXML
-    private TextField appointmentTypeTextField;
 
     @FXML
     private DatePicker appointmentDatePicker;
@@ -56,6 +56,18 @@ public class UpdateAppointmentsController {
     @FXML
     private Label appointmentIdLabel;
 
+    @FXML
+    private ToggleGroup appointTypeToggleGroup;
+
+    @FXML
+    private RadioButton phoneMeetingRadioButton;
+
+    @FXML
+    private RadioButton videoConferenceRadioButton;
+
+    @FXML
+    private RadioButton inPersonRadioButton;
+
 
     @FXML
     public void initialize() {
@@ -75,15 +87,26 @@ public class UpdateAppointmentsController {
         userComboBox.setVisibleRowCount(5);
 
         //for appointment time ComboBox
-        LocalTime start = LocalTime.of(8,0);
-        LocalTime end = LocalTime.of(17,0);
+        LocalTime start = LocalTime.of(00,0);
+        LocalTime end = LocalTime.of(23,30);
 
         while(start.isBefore(end.plusSeconds(1))) {
             startComboBox.getItems().add(start);
             endComboBox.getItems().add(start);
-            start = start.plusMinutes(30);
+            start = start.plusMinutes(15);
         }
     }
+
+//    public void writeNow() throws IOException {
+//        String fileName = "src/Files/dudes.txt";
+//
+//        FileWriter fwriter = new FileWriter(fileName, true);
+//
+//        PrintWriter outputFile = new PrintWriter(fwriter);
+//        outputFile.println(myText.getText());
+//        outputFile.close();
+//        System.out.println("written");
+//    }
 
     @FXML
     public void populateAppointmentForm(Appointments passedAppointment) {
@@ -91,7 +114,16 @@ public class UpdateAppointmentsController {
         appointmentTitleTextField.setText(passedAppointment.getTitle());
         appointmentDescriptionTextArea.setText(passedAppointment.getDescription());
         appointmentLocationTextField.setText(passedAppointment.getLocation());
-        appointmentTypeTextField.setText(passedAppointment.getType());
+        //appointmentTypeTextField.setText(passedAppointment.getType());
+        if(passedAppointment.getType().equals("Phone Meeting")) {
+            phoneMeetingRadioButton.fire();
+        }
+        if (passedAppointment.getType().equals("Video Conference")) {
+            videoConferenceRadioButton.fire();
+        }
+        if(passedAppointment.getType().equals("In-Person Meeting")){
+            inPersonRadioButton.fire();
+        }
         appointmentDatePicker.setValue(passedAppointment.getStartTime().toLocalDate());
         startComboBox.setValue(passedAppointment.getStartTime().toLocalTime());
         endComboBox.setValue(passedAppointment.getEndTime().toLocalTime());
@@ -126,7 +158,16 @@ public class UpdateAppointmentsController {
         String title = appointmentTitleTextField.getText();
         String description = appointmentDescriptionTextArea.getText();
         String location = appointmentLocationTextField.getText();
-        String type = appointmentTypeTextField.getText();
+        String type = "";
+        if(phoneMeetingRadioButton.isSelected()) {
+            type = "Phone Meeting";
+        }
+        if(videoConferenceRadioButton.isSelected()) {
+            type = "Video Conference";
+        }
+        if(inPersonRadioButton.isSelected()) {
+            type = "In-Person Meeting";
+        }
         LocalTime startTime = startComboBox.getValue();
         LocalTime endTime = endComboBox.getValue();
         LocalDate appointmentDate = appointmentDatePicker.getValue();
@@ -138,13 +179,25 @@ public class UpdateAppointmentsController {
         String userName = userComboBox.getValue().getUserName();
         int contactId = contactComboBox.getValue().getContactId();
         String contactName = contactComboBox.getValue().getContactName();
-        Appointments updatedAppointmentObject = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
-        DBAppointments.updateSelectedAppointment(updatedAppointmentObject);
 
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = FXMLLoader.load(getClass().getResource("../view/appointments_screen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        int conversionResult = TimeZoneConversion.estConversion(appointmentStartDateAndTime, appointmentEndDateAndTime);
+
+        if (conversionResult == 1) {
+            AlertMessageController.businessClosedError();
+        } else if (appointmentEndDateAndTime.isBefore(appointmentStartDateAndTime)) {
+            AlertMessageController.endTimeBeforeStartTimeError();
+        } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
+            AlertMessageController.nullValueEntry();
+        } else {
+
+            Appointments updatedAppointmentObject = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
+            DBAppointments.updateSelectedAppointment(updatedAppointmentObject);
+
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = FXMLLoader.load(getClass().getResource("../view/appointments_screen.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     /** Cancels the update and returns users to the main appointment screen.*/

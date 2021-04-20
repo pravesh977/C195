@@ -33,9 +33,6 @@ public class AddAppointmentsController {
     private TextField appointmentLocationTextField;
 
     @FXML
-    private TextField appointmentTypeTextField;
-
-    @FXML
     private DatePicker appointmentDatePicker;
 
     @FXML
@@ -52,6 +49,18 @@ public class AddAppointmentsController {
 
     @FXML
     private ComboBox<Users> userComboBox;
+
+    @FXML
+    private ToggleGroup appointTypeToggleGroup;
+
+    @FXML
+    private RadioButton phoneMeetingRadioButton;
+
+    @FXML
+    private RadioButton videoConferenceRadioButton;
+
+    @FXML
+    private RadioButton inPersonRadioButton;
 
 
     /**
@@ -91,7 +100,16 @@ public class AddAppointmentsController {
             String title = appointmentTitleTextField.getText();
             String description = appointmentDescriptionTextArea.getText();
             String location = appointmentLocationTextField.getText();
-            String type = appointmentTypeTextField.getText();
+            String type = "";
+            if(phoneMeetingRadioButton.isSelected()) {
+                type = "Phone Meeting";
+            }
+            if(videoConferenceRadioButton.isSelected()) {
+                type = "Video Conference";
+            }
+            if(inPersonRadioButton.isSelected()) {
+                type = "In-Person Meeting";
+            }
             LocalTime startTime = startComboBox.getValue();
             LocalTime endTime = endComboBox.getValue();
             LocalDate appointmentDate = appointmentDatePicker.getValue();

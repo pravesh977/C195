@@ -74,6 +74,8 @@ public class CustomersScreenController {
         customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+        customersTable.getSortOrder().add(customersColumnId);
+
     }
 
 
@@ -85,7 +87,7 @@ public class CustomersScreenController {
         customersColumnPostal.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
         customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
         customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
-        System.out.println("loaded bud");
+        customersTable.getSortOrder().add(customersColumnId);
     }
 
 

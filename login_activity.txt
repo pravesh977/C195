@@ -1,0 +1,8 @@
+Unsuccessful login attempted by username: corn
+Activity on: 2021-04-20T12:41:54.601020Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-20T12:41:59.863613Z UTC.
+111SUCCESS
+------------------------------------------------------

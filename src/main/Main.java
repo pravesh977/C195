@@ -14,10 +14,7 @@ import utils.TimeZoneConversion;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 public class Main extends Application {
 
@@ -34,6 +31,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnections.startConnection();
 
+        //System.out.println(Instant.now() + "CURRENT UtC TIME Is");
         //TimeZoneConversion.utcToLocal();
     //    TimeZoneConversion.displayUtc();
 //        DBAppointments.getStartUTC();

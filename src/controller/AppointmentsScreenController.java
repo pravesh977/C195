@@ -63,6 +63,7 @@ public class AppointmentsScreenController {
         appEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         appCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         appUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        fullAppointmentTable.getSortOrder().add(appIdCol);
     }
 
     @FXML
