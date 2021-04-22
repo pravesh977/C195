@@ -236,6 +236,7 @@ public class AppointmentsScreenController {
                 Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
                 DBAppointments.deleteSelectedAppointment(selectedAppointment.getAppointmentId());
                 initialize();
+                AlertMessageController.appointmentDeleteConfirmation(selectedAppointment.getAppointmentId());
             }
         } else {
             AlertMessageController.nonSelectionErrorDelete();

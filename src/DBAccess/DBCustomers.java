@@ -158,7 +158,7 @@ public class DBCustomers {
             ps.setInt(1, customerId);
             try {
                 ps.executeUpdate();
-                AlertMessageController.deleteSuccessfulWithoutCustomer(customerId);
+                AlertMessageController.deleteSuccessfulWithoutAppointment(customerId);
             }
             catch(SQLIntegrityConstraintViolationException e) {
                 Optional<ButtonType> answer = AlertMessageController.customerHasAppointmentsError();

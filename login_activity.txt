@@ -254,3 +254,11 @@ Successful login by username: admin
 Activity on: 2021-04-22T18:32:36.415303Z UTC.
 111SUCCESS
 ------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:36:20.055124Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:41:17.027937Z UTC.
+111SUCCESS
+------------------------------------------------------

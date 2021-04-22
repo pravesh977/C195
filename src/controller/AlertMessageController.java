@@ -40,10 +40,18 @@ public class AlertMessageController {
     }
 
     /** Non selection error when trying to update or delete appointments or customers*/
-    public static void deleteSuccessfulWithoutCustomer(int deletedCustomerId) {
+    public static void deleteSuccessfulWithoutAppointment(int deletedCustomerId) {
         Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
         errorAlert.setTitle("Delete Successful");
         errorAlert.setContentText("The customer with Id " + deletedCustomerId +" has been deleted");
+        errorAlert.showAndWait();
+    }
+
+    /** Non selection error when trying to update or delete appointments or customers*/
+    public static void appointmentDeleteConfirmation(int deletedAppointmentId) {
+        Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+        errorAlert.setTitle("Delete Successful");
+        errorAlert.setContentText("The appointment with Id " + deletedAppointmentId +" has been deleted");
         errorAlert.showAndWait();
     }
 
