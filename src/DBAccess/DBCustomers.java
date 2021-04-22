@@ -1,14 +1,18 @@
 package DBAccess;
 
 import com.mysql.cj.jdbc.exceptions.SQLError;
+import controller.AlertMessageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ButtonType;
 import model.Customers;
 import utils.DBConnections;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Optional;
 
 public class DBCustomers {
 
@@ -152,12 +156,31 @@ public class DBCustomers {
             String sql = "DELETE FROM customers WHERE Customer_ID = ?";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ps.setInt(1, customerId);
+            try {
+                ps.executeUpdate();
+                AlertMessageController.deleteSuccessfulWithoutCustomer(customerId);
+            }
+            catch(SQLIntegrityConstraintViolationException e) {
+                Optional<ButtonType> answer = AlertMessageController.customerHasAppointmentsError();
+                if(answer.isPresent() && answer.get() == ButtonType.OK) {
+                    try {
+                        String sqli = "DELETE FROM appointments WHERE Customer_ID = ?";
+                        PreparedStatement psi = DBConnections.getConnection().prepareStatement(sqli);
+                        psi.setInt(1, customerId);
 
-            ps.executeUpdate();
+                        psi.executeUpdate();
+                        //Delete successful
+                        AlertMessageController.deleteAppointmentSuccessfulNowDeleteCustomer(customerId);
+                    }
+                    catch(SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+
         }
         catch(SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

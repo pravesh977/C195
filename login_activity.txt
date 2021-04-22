@@ -78,3 +78,179 @@ Successful login by username: admin
 Activity on: 2021-04-20T23:27:53.301413Z UTC.
 111SUCCESS
 ------------------------------------------------------
+Unsuccessful login attempted by username: lklkj
+Activity on: 2021-04-20T23:57:33.429286Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T00:56:23.090266Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: 
+Activity on: 2021-04-21T01:09:45.235346Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T01:09:50.974290Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T01:20:38.748450Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T01:21:52.778521Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T01:52:59.415823Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T01:59:18.761043Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T22:59:15.042324Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: TEST
+Activity on: 2021-04-21T23:08:02.974739Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: start
+Activity on: 2021-04-21T23:44:10.313842Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-21T23:44:14.375225Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T00:57:19.138242Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T01:16:00.278744Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-22T01:18:47.326013Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T11:48:55.889760Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T12:12:58.492725Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T12:13:50.129695Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T15:14:04.782214Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T15:24:59.745088Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T16:42:16.796422Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T16:46:27.911464Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: AdMin
+Activity on: 2021-04-22T16:48:58.209513Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T16:54:13.636304Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T16:54:36.694222Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:13:39.187275Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:17:13.431716Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:18:21.022835Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:19:44.989119Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:21:48.805032Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:24:07.439344Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:32:35.746944Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-22T17:48:31.591397Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:50:44.137099Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T17:51:45.318433Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:04:33.630038Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:08:29.355652Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:17:06.580494Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:18:47.117508Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:20:23.630546Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:25:27.106800Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:27:35.666542Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-22T18:29:15.241728Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-22T18:32:36.415303Z UTC.
+111SUCCESS
+------------------------------------------------------

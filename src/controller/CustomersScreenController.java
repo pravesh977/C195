@@ -19,6 +19,7 @@ import model.Customers;
 import utils.DBConnections;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
 public class CustomersScreenController {
@@ -49,7 +50,9 @@ public class CustomersScreenController {
     @FXML
     private TextField searchCustomerTextField;
 
-    /** Handles the Main Menu button and switches the window to Main Screen. */
+    /**
+     * Handles the Main Menu button and switches the window to Main Screen.
+     */
     @FXML
     public void navigateToMainScreen(MouseEvent event) throws IOException {
 //        Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
@@ -59,7 +62,7 @@ public class CustomersScreenController {
 //        stage.setScene(scene);
 //        stage.show();
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
         stage.setTitle("Main Menu");
         stage.setScene(new Scene(scene));
@@ -91,7 +94,9 @@ public class CustomersScreenController {
     }
 
 
-    /** Handles the search button and the enter button for search customer.*/
+    /**
+     * Handles the search button and the enter button for search customer.
+     */
     @FXML
     public void searchCustomer() {
 
@@ -160,36 +165,42 @@ public class CustomersScreenController {
 
     @FXML
     public void updateCustomerButtonClicked(MouseEvent event) throws IOException {
-        //FIX Me add nullpointer exception catcher for updating without selecting
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/update_customers_screen.fxml"));
-        loader.load();
+        if (customersTable.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/update_customers_screen.fxml"));
+            loader.load();
 
-        UpdateCustomersController updateCustomerCont = loader.getController();
+            UpdateCustomersController updateCustomerCont = loader.getController();
 
-        Customers selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
-        updateCustomerCont.populateUpdateForm(selectedCustomer);
+            Customers selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
+            updateCustomerCont.populateUpdateForm(selectedCustomer);
 
-//        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//        Parent scene = loader.getRoot();
-//        stage.setScene(new Scene(scene));
-//        stage.show();
-
-
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        } else {
+            AlertMessageController.nonSelectionErrorUpdate();
+        }
     }
 
     @FXML
     public void deleteSelectedCustomer() {
-        Customers selectedCustomerForDeletion = customersTable.getSelectionModel().getSelectedItem();
-        DBCustomers.deleteCustomer(selectedCustomerForDeletion.getCustomerId());
-        loadCustomerTable();
+        if (customersTable.getSelectionModel().getSelectedItem() != null) {
+            Optional<ButtonType> answer = AlertMessageController.deleteWarning();
+            if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                Customers selectedCustomerForDeletion = customersTable.getSelectionModel().getSelectedItem();
+                DBCustomers.deleteCustomer(selectedCustomerForDeletion.getCustomerId());
+                loadCustomerTable();
+            }
+        } else {
+            AlertMessageController.nonSelectionErrorDelete();
+        }
     }
 
-    /** Handles the exit button*/
+    /**
+     * Handles the exit button
+     */
     @FXML
     public void handleExit() {
         System.exit(0);

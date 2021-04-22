@@ -14,6 +14,7 @@ import model.Appointments;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class AppointmentsScreenController {
 
@@ -51,7 +52,76 @@ public class AppointmentsScreenController {
     private TableColumn<Appointments, String> appUserCol;
 
     @FXML
+    private TableView<Appointments> monthlyAppointmentTable;
+
+    @FXML
+    private TableColumn<Appointments, Integer> monthlyAppIdCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppTitleCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppDescriptionCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppLocationCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppContactCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppTypeCol;
+
+    @FXML
+    private TableColumn<Appointments, LocalDateTime> monthlyAppStartCol;
+
+    @FXML
+    private TableColumn<Appointments, LocalDateTime> monthlyAppEndCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppCustomerCol;
+
+    @FXML
+    private TableColumn<Appointments, String> monthlyAppUserCol;
+
+    @FXML
+    private TableView<Appointments> weeklyAppointmentTable;
+
+    @FXML
+    private TableColumn<Appointments, Integer> weeklyAppIdCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppTitleCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppDescriptionCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppLocationCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppContactCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppTypeCol;
+
+    @FXML
+    private TableColumn<Appointments, LocalDateTime> weeklyAppStartCol;
+
+    @FXML
+    private TableColumn<Appointments, LocalDateTime> weeklyAppEndCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppCustomerCol;
+
+    @FXML
+    private TableColumn<Appointments, String> weeklyAppUserCol;
+
+    /** Initializing all three tables with all, monthly, and weekly appointment data*/
+    @FXML
     public void initialize() {
+
+        //for full appointment table
         fullAppointmentTable.setItems(DBAppointments.getAllAppointments());
         appIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         appTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -64,6 +134,34 @@ public class AppointmentsScreenController {
         appCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         appUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         fullAppointmentTable.getSortOrder().add(appIdCol);
+
+        //for monthly appointment table
+        monthlyAppointmentTable.setItems(DBAppointments.getCurrentMonthAppointments());
+        monthlyAppIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        monthlyAppTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        monthlyAppDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        monthlyAppLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        monthlyAppTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        monthlyAppContactCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        monthlyAppStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        monthlyAppEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        monthlyAppCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        monthlyAppUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        monthlyAppointmentTable.getSortOrder().add(monthlyAppStartCol);
+
+        //for weekly appointment table
+        weeklyAppointmentTable.setItems(DBAppointments.getCurrentWeekAppointments());
+        weeklyAppIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        weeklyAppTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        weeklyAppDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        weeklyAppLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        weeklyAppTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        weeklyAppContactCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+        weeklyAppStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        weeklyAppEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        weeklyAppCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        weeklyAppUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        weeklyAppointmentTable.getSortOrder().add(weeklyAppStartCol);
     }
 
     @FXML
@@ -110,27 +208,38 @@ public class AppointmentsScreenController {
 
     /** opens a form to let users update selected appointment by passing selected appointment to updateAppointmentController*/
     public void openUpdateAppointmentForm(MouseEvent event) throws IOException {
-        //FIX Me add nullpointer exception catcher for updating without selecting
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/update_appointments_screen.fxml"));
-        loader.load();
+        if(fullAppointmentTable.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/update_appointments_screen.fxml"));
+            loader.load();
 
-        UpdateAppointmentsController updateAppointmentCont = loader.getController();
+            UpdateAppointmentsController updateAppointmentCont = loader.getController();
 
-        Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
-        updateAppointmentCont.populateAppointmentForm(selectedAppointment);
+            Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
+            updateAppointmentCont.populateAppointmentForm(selectedAppointment);
 
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+        else {
+            AlertMessageController.nonSelectionErrorUpdate();
+        }
     }
 
     /** Deletes the selected appointment from the appointment table by passing it to DBAppointments*/
     public void deleteAppointment() {
-        Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
-        DBAppointments.deleteSelectedAppointment(selectedAppointment.getAppointmentId());
-        initialize();
+        if(fullAppointmentTable.getSelectionModel().getSelectedItem() != null) {
+            Optional<ButtonType> answer = AlertMessageController.deleteWarning();
+            if(answer.isPresent() && answer.get() == ButtonType.OK) {
+                Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
+                DBAppointments.deleteSelectedAppointment(selectedAppointment.getAppointmentId());
+                initialize();
+            }
+        } else {
+            AlertMessageController.nonSelectionErrorDelete();
+        }
     }
 
     /** Handles the exit button*/

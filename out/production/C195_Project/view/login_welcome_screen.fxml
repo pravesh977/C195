@@ -43,5 +43,15 @@
          </children>
       </VBox>
       <Button fx:id="exitButton" layoutX="282.0" layoutY="359.0" mnemonicParsing="false" onAction="#exitApplication" text="Exit" />
+      <Label alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" text="Location: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="loginZoneLabel" alignment="TOP_CENTER" layoutX="79.0" layoutY="14.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

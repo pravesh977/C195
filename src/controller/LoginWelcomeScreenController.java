@@ -18,8 +18,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class LoginWelcomeScreenController {
 
@@ -41,10 +43,14 @@ public class LoginWelcomeScreenController {
     @FXML
     private Button exitButton;
 
+    @FXML
+    private Label loginZoneLabel;
 
 
     @FXML
     public void initialize() {
+        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+        loginZoneLabel.setText(String.valueOf(localZoneId));
         ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
         if(Locale.getDefault().getLanguage().equals("fr")) {
             usernameLabel.setText(resBundle.getString("username"));

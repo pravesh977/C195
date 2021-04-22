@@ -3,6 +3,7 @@ package main;
 import DBAccess.DBAppointments;
 import DBAccess.DBContacts;
 import DBAccess.DBCountries;
+import com.mysql.cj.result.LocalDateValueFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +16,11 @@ import utils.TimeZoneConversion;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class Main extends Application {
 
@@ -32,6 +37,45 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnections.startConnection();
 
+//        LocalDate localD = LocalDate.now();
+//        LocalTime zeroHoursAndMinutes = LocalTime.of(0, 00);
+//        LocalDateTime zeroLocalDT = LocalDateTime.of(localD, zeroHoursAndMinutes);
+//        LocalDateTime firstDayOfMonth = zeroLocalDT.with(TemporalAdjusters.firstDayOfMonth());
+//        LocalDateTime lastDayOfMonth = zeroLocalDT.with(TemporalAdjusters.lastDayOfMonth());
+//        System.out.println(firstDayOfMonth + "first date of month");
+//        System.out.println(lastDayOfMonth + "last date of month");
+
+//        LocalDateTime localDT = LocalDateTime.now();
+//        System.out.println(localDT.with(TemporalAdjusters.firstDayOfMonth()) + " first date of current month");
+//        System.out.println(localDT.with(TemporalAdjusters.lastDayOfMonth()) + " last day of month");
+//
+//        LocalDate localD = LocalDate.now();
+//        LocalTime zeroHoursAndMins = LocalTime.of(0, 00);
+//        LocalDateTime zeroLocalDT = LocalDateTime.of(localD, zeroHoursAndMins);
+//        System.out.println(zeroLocalDT + " with zero hours");
+
+        //getting starting week and end days of the week
+//        LocalDateTime now = LocalDateTime.now();
+//        TemporalField fieldUS = WeekFields.of(Locale.getDefault()).dayOfWeek();
+//        System.out.println(now.with(fieldUS, 1)); // 2015-02-08 (Sunday)
+//        System.out.println(now.with(fieldUS, 7)); // 2015-02-08 (Monday)
+
+
+
+
+//        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//        LocalDate firstDayOfThisWeek = LocalDate.now ( localZoneId ).with ( DayOfWeek.MONDAY );
+//
+//        ZonedDateTime thisWeekStart = firstDayOfThisWeek.atStartOfDay ( localZoneId );
+//        System.out.println(firstDayOfThisWeek);
+//        System.out.println(thisWeekStart);
+
+//        System.out.println(currentLDT);
+//        System.out.println(currentLDT.getDayOfMonth());
+//        System.out.println(currentLDT.getDayOfWeek());
+//        System.out.println(currentLDT.with(DayOfWeek.MONDAY));
+//        System.out.println(currentLDT.with(DayOfWeek.SUNDAY));
+        //System.out.println(currentLDT.get(WeekFields.of(locale).weekOfYear())
 
 //        System.out.println(Locale.getDefault());
         //System.out.println(Instant.now() + "CURRENT UtC TIME Is");
@@ -62,6 +106,12 @@ public class Main extends Application {
 //        System.out.println(newlocaldatetime.toLocalDate());
         //System.out.println(DBAppointments.getAllAppointments().get(0).getStartTime());
 //        System.out.println(DBContacts.getAllContacts().get(1).getContactEmail());
+
+
+//        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//        System.out.println(localZoneId);
+
+
         launch(args);
         DBConnections.closeConnection();
     }

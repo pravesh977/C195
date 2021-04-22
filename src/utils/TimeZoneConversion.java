@@ -57,20 +57,20 @@ public class TimeZoneConversion {
         ZonedDateTime estOfficeStartZDT = ZonedDateTime.of(businessDate, businessStartingTime, estZoneId);
         ZonedDateTime estOfficeEndZDT = ZonedDateTime.of(businessDate, businessClosingTime, estZoneId);
 
-        System.out.println(estOfficeStartZDT + " this is the starting hours in EST");
-
-        System.out.println(estOfficeEndZDT + " this is the closing hours in EST");
+//        System.out.println(estOfficeStartZDT + " this is the starting hours in EST");
+//
+//        System.out.println(estOfficeEndZDT + " this is the closing hours in EST");
 
         //getting the passed date/time and setting it up as ZoneDateTime
         ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
         LocalDate localStartDate = appointmentStartTime.toLocalDate();
         LocalTime localStartTime = appointmentStartTime.toLocalTime();
         ZonedDateTime appointmentStartLocalZDT = ZonedDateTime.of(localStartDate, localStartTime, localZoneId);
-        System.out.println(appointmentStartLocalZDT + " local zone date for appointment start time is" );
+        //System.out.println(appointmentStartLocalZDT + " local zone date for appointment start time is" );
         LocalDate localEndDate = appointmentEndTime.toLocalDate();
         LocalTime localEndTime = appointmentEndTime.toLocalTime();
         ZonedDateTime appointmentEndLocalZDT = ZonedDateTime.of(localEndDate, localEndTime, localZoneId);
-        System.out.println(appointmentEndLocalZDT + " local zone date for appointment end time is" );
+        //System.out.println(appointmentEndLocalZDT + " local zone date for appointment end time is" );
 
 
 //        //Unused?
@@ -84,11 +84,11 @@ public class TimeZoneConversion {
 //        System.out.println(estLocalDateTime  + " est converted to LocalDateTime");
         //localDT.isBefore()
         if(appointmentStartLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT)) {
-            System.out.println("business is closed");
+            //System.out.println("business is closed");
             return 1;
         }
         else {
-            System.out.println("business is open");
+            //System.out.println("business is open");
             return 2;
         }
 

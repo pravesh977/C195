@@ -1,23 +1,73 @@
 package controller;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AlertMessageController {
 
-    public static void beforeBusinessHoursError() {
+    /** Displays an error alert in french or english depending on user's OS language when login fails*/
+    public static void failedLoginError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setTitle("Before Business Hours");
-        errorAlert.setContentText("Cannot set up appointment before 8:00 EST");
+        ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
+        if(Locale.getDefault().getLanguage().equals("fr")) {
+            errorAlert.setTitle(resBundle.getString("loginfailed"));
+            errorAlert.setContentText(resBundle.getString("checkcredentials"));
+        } else {
+            errorAlert.setTitle("Login Failed");
+            errorAlert.setContentText("Please make sure the Username and Password are correct");
+        }
         errorAlert.showAndWait();
     }
 
-    public static void afterBusinessHoursError() {
+    public static Optional<ButtonType> customerHasAppointmentsError() {
+        Alert deleteCustomersAppointmentAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        deleteCustomersAppointmentAlert.setTitle("Customer has appointments");
+        deleteCustomersAppointmentAlert.setContentText("This customer has appointments and cannot be deleted. Would you like to delete all their appointments now?");
+        Optional<ButtonType> result = deleteCustomersAppointmentAlert.showAndWait();
+        return result;
+    }
+
+    public static Optional<ButtonType> deleteWarning() {
+        Alert confirmDeleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDeleteAlert.setTitle("Confirm Delete");
+        confirmDeleteAlert.setContentText("Are you sure you want to delete this?");
+        Optional<ButtonType> result = confirmDeleteAlert.showAndWait();
+        return result;
+    }
+
+    /** Non selection error when trying to update or delete appointments or customers*/
+    public static void deleteSuccessfulWithoutCustomer(int deletedCustomerId) {
+        Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+        errorAlert.setTitle("Delete Successful");
+        errorAlert.setContentText("The customer with Id " + deletedCustomerId +" has been deleted");
+        errorAlert.showAndWait();
+    }
+
+    /** Non selection error when trying to update or delete appointments or customers*/
+    public static void deleteAppointmentSuccessfulNowDeleteCustomer(int deletedCustomerId) {
+        Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+        errorAlert.setTitle("Delete Successful");
+        errorAlert.setContentText("All appointments for customer with id " + deletedCustomerId +" have been deleted. Please delete the customer now");
+        errorAlert.showAndWait();
+    }
+
+    /** Non selection error when trying to update or delete appointments or customers*/
+    public static void nonSelectionErrorUpdate() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setTitle("After Business Hours");
-        errorAlert.setContentText("Cannot set up appointment after 22:00 EST");
+        errorAlert.setTitle("Nothing selected");
+        errorAlert.setContentText("Please select an item to update");
+        errorAlert.showAndWait();
+    }
+
+    /** Non selection error when trying to update or delete appointments or customers*/
+    public static void nonSelectionErrorDelete() {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Nothing selected");
+        errorAlert.setContentText("Please select an item to delete");
         errorAlert.showAndWait();
     }
 
@@ -27,8 +77,6 @@ public class AlertMessageController {
         errorAlert.setContentText("Business is not open at this scheduled time. Please schedule between 08:00 and 22:00 EST.");
         errorAlert.showAndWait();
     }
-
-
 
     public static void endTimeBeforeStartTimeError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -51,17 +99,6 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
-    public static void failedLoginError() {
-        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
-        if(Locale.getDefault().getLanguage().equals("fr")) {
-            errorAlert.setTitle(resBundle.getString("loginfailed"));
-            errorAlert.setContentText(resBundle.getString("checkcredentials"));
-        } else {
-            errorAlert.setTitle("Login Failed");
-            errorAlert.setContentText("Please make sure the Username and Password are correct");
-        }
-        errorAlert.showAndWait();
-    }
+
 
 }
