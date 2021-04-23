@@ -37,6 +37,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnections.startConnection();
 
+        //System.out.println(DBAppointments.getAppointmentsByTypeAndMonth().get(5).getMonth());
+
 //        LocalDate localD = LocalDate.now();
 //        LocalTime zeroHoursAndMinutes = LocalTime.of(0, 00);
 //        LocalDateTime zeroLocalDT = LocalDateTime.of(localD, zeroHoursAndMinutes);

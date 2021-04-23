@@ -3,6 +3,7 @@ package DBAccess;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointments;
+import model.Contacts;
 import model.Countries;
 import utils.DBConnections;
 import utils.TimeZoneConversion;
@@ -218,6 +219,27 @@ public class DBAppointments {
         catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ObservableList<Appointments> getAppointmentsByTypeAndMonth() {
+        ObservableList<Appointments> appointmentsByTypeAndMonth = FXCollections.observableArrayList();
+            try{
+                String sql = "SELECT MONTHNAME(Start) AS Month, Type, COUNT(*) AS Occurrences FROM appointments GROUP BY Type, MONTHNAME(Start) ORDER BY MONTHNAME(Start)";
+                PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+
+                while(rs.next()) {
+                    String month = rs.getString("Month");
+                    String type = rs.getString("Type");
+                    int occurrences = rs.getInt("Occurrences");
+                    Appointments appointment = new Appointments(month, type, occurrences);
+                    appointmentsByTypeAndMonth.add(appointment);
+                }
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+
+        return appointmentsByTypeAndMonth;
     }
 
     public static void getStartUTC() {

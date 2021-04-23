@@ -7,34 +7,46 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Appointments;
 
 import java.awt.*;
 import java.io.IOException;
 
 public class ReportsScreenController {
 
+    @FXML
+    public void appointmentsReportButtonClicked() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/month_type_report_screen.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Add New Customer Form");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
     @FXML
-    public void openmainpage(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Welcome");
-        stage.setScene(scene);
+    public void scheduleForContactsReportClicked() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Add New Customer Form");
+        stage.setScene(new Scene(root));
         stage.show();
+    }
 
-//        FXMLLoader fxmlLoader = new FXMLLoader();
-//        fxmlLoader.setLocation(getClass().getResource("../view/customers_screen.fxml"));
-//
-//        Scene scene = new Scene(fxmlLoader.load());
-//        Stage stage = new Stage();
-//        //stage.setTitle("New Window");
-//        stage.setScene(scene);
-//        stage.show();
+    @FXML
+    public void loginInformationButtonClicked() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Add New Customer Form");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

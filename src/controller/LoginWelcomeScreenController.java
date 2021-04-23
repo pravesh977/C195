@@ -65,13 +65,12 @@ public class LoginWelcomeScreenController {
      */
     @FXML
     public void loginClicked(MouseEvent event) throws IOException {
-        //FIXME: handle user name and password entered, show error
+        //FIXME: handle user name and password entered, show error case sensitive fix
 
         String userNameString = userNameTextField.getText().trim();
         String passwordString = userPasswordField.getText().trim();
 
         //Creating a text file to log login activities
-
         String fileName = "login_activity.txt";
         FileWriter fileWriter = new FileWriter(fileName, true);
         PrintWriter outputFile = new PrintWriter(fileWriter);

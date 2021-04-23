@@ -20,6 +20,16 @@ public class Appointments {
     private int contactId;
     private String contactName;
 
+    //added
+    private String month;
+    private int occurrences;
+
+    //added new constructor overloading for reports type
+    public Appointments(String month, String type, int occurrences) {
+        this.month = month;
+        this.type = type;
+        this.occurrences = occurrences;
+    }
 
     public Appointments(int appointmentId, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, String customerName, int userId, String userName, int contactId, String contactName) {
         this.appointmentId = appointmentId;
@@ -35,6 +45,16 @@ public class Appointments {
         this.userName = userName;
         this.contactId = contactId;
         this.contactName = contactName;
+    }
+
+    //added later
+    public String getMonth() {
+        return month;
+    }
+
+    //added later
+    public int getOccurrences() {
+        return occurrences;
     }
 
     public int getAppointmentId() {
