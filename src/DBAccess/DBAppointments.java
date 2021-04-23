@@ -221,6 +221,7 @@ public class DBAppointments {
         }
     }
 
+    /** Method returns month and type occurrences from appointments using group by sql syntax*/
     public static ObservableList<Appointments> getAppointmentsByTypeAndMonth() {
         ObservableList<Appointments> appointmentsByTypeAndMonth = FXCollections.observableArrayList();
             try{
@@ -242,21 +243,36 @@ public class DBAppointments {
         return appointmentsByTypeAndMonth;
     }
 
-    public static void getStartUTC() {
-        try {
-            String sql = "SELECT Start from appointments";
+    /** Method returns ObservableList of appointments of contacts for their schedule*/
+    public static ObservableList<Appointments> getAppointmentScheduleForContact(int passedContactId) {
+        ObservableList<Appointments> appointmentsForContact = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT Appointment_ID, Title, Description, Type, Start, End, Customer_ID FROM appointments WHERE Contact_ID = ?";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+            ps.setInt(1, passedContactId);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
-                Timestamp startUTC = rs.getTimestamp("Start");
-                System.out.println(startUTC + " UTC value");
-                LocalDateTime startLocalDateTime = startUTC.toLocalDateTime();
-                System.out.println(startLocalDateTime + " Local Value");
-            }
 
+            while(rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                //converting timestamp to LocalDateTime data type
+                LocalDateTime startLocalDateTime = start.toLocalDateTime();
+
+                Timestamp end = rs.getTimestamp("End");
+                //converting timestamp to LocalDateTime data type
+                LocalDateTime endLocalDateTime = end.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                Appointments appointment = new Appointments(appointmentId, title, description, type, startLocalDateTime, endLocalDateTime, customerId);
+                appointmentsForContact.add(appointment);
+            }
         } catch(SQLException e) {
             e.printStackTrace();
         }
+
+        return appointmentsForContact;
     }
 
 }

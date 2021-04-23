@@ -24,11 +24,23 @@ public class Appointments {
     private String month;
     private int occurrences;
 
-    //added new constructor overloading for reports type
+    //added new constructor overloading for reports type and month
     public Appointments(String month, String type, int occurrences) {
         this.month = month;
         this.type = type;
         this.occurrences = occurrences;
+    }
+
+    //added constructor overloading for contact schedule report
+    public Appointments(int appointmentId, String title, String description, String type, LocalDateTime startTime, LocalDateTime endTime, int customerId) {
+        this.appointmentId = appointmentId;
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.customerId = customerId;
+        this.contactId = contactId;
     }
 
     public Appointments(int appointmentId, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, String customerName, int userId, String userName, int contactId, String contactName) {

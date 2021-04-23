@@ -24,17 +24,17 @@ public class ReportsScreenController {
         Parent root = FXMLLoader.load(getClass().getResource("../view/month_type_report_screen.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Add New Customer Form");
+        stage.setTitle("Report by Month and Type");
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
     public void scheduleForContactsReportClicked() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/schedule_contacts.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Add New Customer Form");
+        stage.setTitle("Schedule report for Contacts");
         stage.setScene(new Scene(root));
         stage.show();
     }
