@@ -314,3 +314,67 @@ Successful login by username: test
 Activity on: 2021-04-23T14:41:07.555395Z UTC.
 111SUCCESS
 ------------------------------------------------------
+Unsuccessful login attempted by username: aDmin
+Activity on: 2021-04-23T15:14:08.083943Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: aDmin
+Activity on: 2021-04-23T15:14:13.017354Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-24T11:28:08.206521Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-24T12:24:33.027295Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-24T12:37:11.998570Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-24T12:38:18.209385Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-04-24T12:38:45.888559Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-24T12:38:57.502582Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: tesal
+Activity on: 2021-04-24T12:43:37.494666Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-24T12:43:41.226054Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: mota
+Activity on: 2021-04-24T12:46:16.140103Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-24T12:46:21.082717Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-24T12:46:47.863565Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: park
+Activity on: 2021-04-24T12:47:11.317554Z UTC.
+999FAIL
+------------------------------------------------------
+Unsuccessful login attempted by username: nfue
+Activity on: 2021-04-24T12:47:20.258451Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-04-24T12:47:25.033917Z UTC.
+111SUCCESS
+------------------------------------------------------

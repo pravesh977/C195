@@ -41,7 +41,7 @@ public class ReportsScreenController {
 
     @FXML
     public void loginInformationButtonClicked() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/login_information_report_screen.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add New Customer Form");
