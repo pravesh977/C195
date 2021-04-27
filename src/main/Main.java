@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Countries;
 import utils.DBConnections;
 import utils.TimeZoneConversion;
@@ -36,6 +37,12 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         DBConnections.startConnection();
+//
+//        for(Appointments element : DBAppointments.getAppointmentsForLoggedInUser(2)) {
+//            System.out.println(element.getDescription());
+//            System.out.println(element.getStartTime());
+//        }
+        //System.out.println(DBAppointments.getAppointmentsForLoggedInUser(2).get(1).getDescription());
 
         //System.out.println(DBAppointments.getAppointmentsByTypeAndMonth().get(5).getMonth());
 

@@ -4,6 +4,7 @@ import DBAccess.DBAppointments;
 import DBAccess.DBContacts;
 import DBAccess.DBCustomers;
 import DBAccess.DBUsers;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -128,7 +129,12 @@ public class AddAppointmentsController {
             int contactId = contactComboBox.getValue().getContactId();
             String contactName = contactComboBox.getValue().getContactName();
 
-
+            //Creating an observable list to see if it returns null or values
+            ObservableList<Appointments> customersWithOverlappingAppointments = DBAppointments.getAppointmentsForContacts(appointmentStartDateAndTime, appointmentEndDateAndTime, customerId);
+//            for(Appointments element:customersWithOverlappingAppointments) {
+//                System.out.println(element.getDescription() + " overlapped desc?");
+//            }
+//            System.out.println(customersWithOverlappingAppointments.size() + " and its size is");
             int conversionResult = TimeZoneConversion.estConversion(appointmentStartDateAndTime, appointmentEndDateAndTime);
 
             if (conversionResult == 1) {
@@ -137,7 +143,10 @@ public class AddAppointmentsController {
                 AlertMessageController.endTimeBeforeStartTimeError();
             } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
                 AlertMessageController.nullValueEntry();
-            } else {
+            } else if (customersWithOverlappingAppointments.size() != 0 ){
+                AlertMessageController.appointmentForCustomersOverlap();
+            }
+            else {
                 Appointments newAppointment = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
                 DBAppointments.addNewAppointment(newAppointment);
 

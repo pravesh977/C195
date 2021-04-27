@@ -1,17 +1,18 @@
 package controller;
 
+import DBAccess.DBAppointments;
 import DBAccess.DBUsers;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Users;
 
 import java.io.FileWriter;
@@ -20,6 +21,7 @@ import java.io.PrintWriter;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
@@ -93,6 +95,43 @@ public class LoginWelcomeScreenController {
             outputFile.println("Successful login by username: " + userNameString);
             outputFile.println("Activity on: " + Instant.now() + " UTC.");
             outputFile.println("111SUCCESS");
+
+            ObservableList<Appointments> appointmentsForLoggedInUserSoon = DBAppointments.getAppointmentsForLoggedInUser(loggedUser.getUserId());
+            if(appointmentsForLoggedInUserSoon.size() == 0) {
+                //System.out.println("no appointments");
+                AlertMessageController.userHasNoAppointmentsSoonAlert(loggedUser.getUserName());
+            } else {
+                //System.out.println("you got appointments");
+                Optional<ButtonType> answer = AlertMessageController.userHasAppointmentsSoonAlert(loggedUser.getUserName(), appointmentsForLoggedInUserSoon.size());
+                if(answer.isPresent() && answer.get() == ButtonType.OK) {
+
+                    for( Appointments element : appointmentsForLoggedInUserSoon) {
+                        AlertMessageController.displaySoonAppointments(element);
+                    }
+
+                    /* Showing user appointments in new modal not working, table not loading
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("../view/logged_in_user_appointments.fxml"));
+                    loader.load();
+
+                    LoggedInUserAppointmentsController loggedInCont = loader.getController();
+                    loggedInCont.initialize(loggedUser.getUserId());
+                    loggedInCont.passUserId(loggedUser.getUserId());
+
+                    System.out.println(appointmentsForLoggedInUserSoon.get(0).getDescription() + " DES YO");
+
+                    Parent root1 = FXMLLoader.load(getClass().getResource("../view/logged_in_user_appointments.fxml"));
+                    Stage stage1 = new Stage();
+                    stage1.initModality(Modality.APPLICATION_MODAL);
+                    stage1.setTitle("Upcoming Appointments for " + loggedUser.getUserName());
+                    stage1.setScene(new Scene(root1));
+                    stage1.show();
+
+                */
+
+                }
+            }
+
         }
         outputFile.println("------------------------------------------------------");
         outputFile.close();
@@ -108,3 +147,8 @@ public class LoginWelcomeScreenController {
     }
 
 }
+
+
+
+
+

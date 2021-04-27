@@ -275,4 +275,89 @@ public class DBAppointments {
         return appointmentsForContact;
     }
 
+    /** Method returns ObservableList of appointments for users whose appointments are within next 15 minutes of logging in*/
+    public static ObservableList<Appointments> getAppointmentsForLoggedInUser(int passedUserId) {
+        ObservableList<Appointments> appointmentsForUser = FXCollections.observableArrayList();
+        try{
+            LocalDateTime nowLocalDT = LocalDateTime.now();
+            LocalDateTime nowPlusFifteenMinutes = LocalDateTime.now().plusMinutes(15);
+
+            String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE users.User_ID = ? AND Start BETWEEN ? AND ?";
+            PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+            ps.setInt(1, passedUserId);
+            ps.setTimestamp(2, Timestamp.valueOf(nowLocalDT));
+            ps.setTimestamp(3, Timestamp.valueOf(nowPlusFifteenMinutes));
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                //converting timestamp to LocalDateTime data type
+                LocalDateTime startLocalDateTime = start.toLocalDateTime();
+//            //delete
+//            TimeZoneConversion.utcToLocalConversion(startLocalDateTime);
+
+                Timestamp end = rs.getTimestamp("End");
+                //converting timestamp to LocalDateTime data type
+                LocalDateTime endLocalDateTime = end.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                String customerName = rs.getString("Customer_Name");
+                int userId = rs.getInt("User_ID");
+                String userName = rs.getString("User_Name");
+                int contactId = rs.getInt("Contact_ID");
+                String contactName = rs.getString("Contact_Name");
+                Appointments appointment = new Appointments(appointmentId, title, description, location, type, startLocalDateTime, endLocalDateTime,customerId, customerName, userId, userName, contactId, contactName);
+                appointmentsForUser.add(appointment);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointmentsForUser;
+    }
+
+    /** Method returns ObservableList of appointments of contacts*/
+    public static ObservableList<Appointments> getAppointmentsForContacts(LocalDateTime passedStartDT, LocalDateTime passedEndDT, int passedCustomerId) {
+        ObservableList<Appointments> appointmentsForUser = FXCollections.observableArrayList();
+        try{
+            //String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?))";
+            String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start > ? AND Start < ?) OR (End > ? AND End < ?))";
+            PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+            ps.setInt(1, passedCustomerId);
+            ps.setTimestamp(2, Timestamp.valueOf(passedStartDT));
+            ps.setTimestamp(3, Timestamp.valueOf(passedEndDT));
+            ps.setTimestamp(4, Timestamp.valueOf(passedStartDT));
+            ps.setTimestamp(5, Timestamp.valueOf(passedEndDT));
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                LocalDateTime startLocalDateTime = start.toLocalDateTime();
+                Timestamp end = rs.getTimestamp("End");
+                LocalDateTime endLocalDateTime = end.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                String customerName = rs.getString("Customer_Name");
+                int userId = rs.getInt("User_ID");
+                String userName = rs.getString("User_Name");
+                int contactId = rs.getInt("Contact_ID");
+                String contactName = rs.getString("Contact_Name");
+                Appointments appointment = new Appointments(appointmentId, title, description, location, type, startLocalDateTime, endLocalDateTime,customerId, customerName, userId, userName, contactId, contactName);
+                appointmentsForUser.add(appointment);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointmentsForUser;
+    }
+
 }

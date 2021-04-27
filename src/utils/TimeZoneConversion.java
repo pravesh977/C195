@@ -83,7 +83,7 @@ public class TimeZoneConversion {
 //        LocalDateTime estLocalDateTime = LocalDateTime.of(estDate, estTime);
 //        System.out.println(estLocalDateTime  + " est converted to LocalDateTime");
         //localDT.isBefore()
-        if(appointmentStartLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT)) {
+        if(appointmentStartLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isBefore(estOfficeStartZDT) || appointmentStartLocalZDT.isAfter(estOfficeEndZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT)) {
             //System.out.println("business is closed");
             return 1;
         }

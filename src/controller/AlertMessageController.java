@@ -2,12 +2,41 @@ package controller;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import model.Appointments;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AlertMessageController {
+
+    /** Displays an alert saying there is an appointment starting for the user within 15 minutes of login time.*/
+    public static Optional<ButtonType> userHasAppointmentsSoonAlert(String name, int numberOfAppointments) {
+        Alert appointmentAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        appointmentAlert.setTitle("Upcoming Appointments");
+        appointmentAlert.setContentText("Hello " + name + ", you have " + numberOfAppointments + " upcoming appointment/s within the next 15 minutes. Would you like to view them?");
+        Optional<ButtonType> result = appointmentAlert.showAndWait();
+        return result;
+    }
+
+    /** Displays an alert saying there are no appointments starting for the user within 15 minutes of login time.*/
+    public static void userHasNoAppointmentsSoonAlert(String name) {
+        Alert noAppointmentAlert = new Alert(Alert.AlertType.INFORMATION);
+        noAppointmentAlert.setTitle("No Upcoming Appointments");
+        noAppointmentAlert.setContentText("Hello " + name + ", you don't have any upcoming appointments within the next 15 minutes.");
+        noAppointmentAlert.showAndWait();
+    }
+
+    /** Gets appointments that are within 15 minutes and shows an alert with details of them*/
+    public static void displaySoonAppointments(Appointments passedAppointment) {
+        Alert comingAppointment = new Alert(Alert.AlertType.INFORMATION);
+        comingAppointment.setTitle(passedAppointment.getTitle());
+        Long timeDifference = ChronoUnit.MINUTES.between(LocalDateTime.now(), passedAppointment.getStartTime());
+        comingAppointment.setContentText("Appointment ID : " + passedAppointment.getAppointmentId() + "\nTitle : " + passedAppointment.getTitle() + "\nDescription : " + passedAppointment.getDescription() + "\nStarting in " + timeDifference + " minutes");
+        comingAppointment.showAndWait();
+    }
 
     /** Displays an error alert in french or english depending on user's OS language when login fails*/
     public static void failedLoginError() {
@@ -93,6 +122,14 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
+    /** Error caused by overlapping appointment times for customer*/
+    public static void appointmentForCustomersOverlap() {
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setTitle("Customer Appointment Overlap");
+        errorAlert.setContentText("Customer already has another appointment. Please select another time.");
+        errorAlert.showAndWait();
+    }
+
     public static void errorAddingAppointment() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error adding appointment");
@@ -106,7 +143,5 @@ public class AlertMessageController {
         errorAlert.setContentText("Field cannot be empty");
         errorAlert.showAndWait();
     }
-
-
 
 }
