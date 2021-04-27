@@ -123,10 +123,10 @@ public class AlertMessageController {
     }
 
     /** Error caused by overlapping appointment times for customer*/
-    public static void appointmentForCustomersOverlap() {
+    public static void appointmentForCustomersOverlap(Appointments passedAppointment) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Customer Appointment Overlap");
-        errorAlert.setContentText("Customer already has another appointment. Please select another time.");
+        errorAlert.setContentText("Customer " + passedAppointment.getCustomerName() +  " already has another appointment on that timeslot." + " \n Title : " + passedAppointment.getTitle() + "\n Description : " + passedAppointment.getDescription() + " \n Start Time : " + passedAppointment.getStartTime() + " \n End Time : " + passedAppointment.getEndTime());
         errorAlert.showAndWait();
     }
 

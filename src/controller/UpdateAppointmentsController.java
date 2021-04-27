@@ -193,7 +193,9 @@ public class UpdateAppointmentsController {
         } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
             AlertMessageController.nullValueEntry();
         } else if (customersWithOverlappingAppointments.size() != 0 ){
-            AlertMessageController.appointmentForCustomersOverlap();
+            for(Appointments element : customersWithOverlappingAppointments) {
+                AlertMessageController.appointmentForCustomersOverlap(element);
+            }
         }
         else {
 
