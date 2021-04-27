@@ -182,7 +182,7 @@ public class UpdateAppointmentsController {
         String contactName = contactComboBox.getValue().getContactName();
 
         //Creating an observable list to see if it returns null or values
-        ObservableList<Appointments> customersWithOverlappingAppointments = DBAppointments.getAppointmentsForContacts(appointmentStartDateAndTime, appointmentEndDateAndTime, customerId);
+        ObservableList<Appointments> customersWithOverlappingAppointments = DBAppointments.getAppointmentsForCustomers(appointmentStartDateAndTime, appointmentEndDateAndTime, customerId);
 
         int conversionResult = TimeZoneConversion.estConversion(appointmentStartDateAndTime, appointmentEndDateAndTime);
 

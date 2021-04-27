@@ -320,12 +320,13 @@ public class DBAppointments {
         return appointmentsForUser;
     }
 
-    /** Method returns ObservableList of appointments of contacts*/
-    public static ObservableList<Appointments> getAppointmentsForContacts(LocalDateTime passedStartDT, LocalDateTime passedEndDT, int passedCustomerId) {
-        ObservableList<Appointments> appointmentsForUser = FXCollections.observableArrayList();
+    /** Method returns ObservableList of appointments of customers*/
+    public static ObservableList<Appointments> getAppointmentsForCustomers(LocalDateTime passedStartDT, LocalDateTime passedEndDT, int passedCustomerId) {
+        ObservableList<Appointments> appointmentsForCustomers = FXCollections.observableArrayList();
         try{
             //String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?))";
-            String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start > ? AND Start < ?) OR (End > ? AND End < ?))";
+            //String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start > ? AND Start < ?) OR (End > ? AND End < ?))";
+            String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start >= ? AND Start < ?) OR (End > ? AND End <= ?))";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ps.setInt(1, passedCustomerId);
             ps.setTimestamp(2, Timestamp.valueOf(passedStartDT));
@@ -351,13 +352,13 @@ public class DBAppointments {
                 int contactId = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 Appointments appointment = new Appointments(appointmentId, title, description, location, type, startLocalDateTime, endLocalDateTime,customerId, customerName, userId, userName, contactId, contactName);
-                appointmentsForUser.add(appointment);
+                appointmentsForCustomers.add(appointment);
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
 
-        return appointmentsForUser;
+        return appointmentsForCustomers;
     }
 
 }

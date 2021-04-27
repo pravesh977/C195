@@ -16,7 +16,7 @@ public class AlertMessageController {
     public static Optional<ButtonType> userHasAppointmentsSoonAlert(String name, int numberOfAppointments) {
         Alert appointmentAlert = new Alert(Alert.AlertType.CONFIRMATION);
         appointmentAlert.setTitle("Upcoming Appointments");
-        appointmentAlert.setContentText("Hello " + name + ", you have " + numberOfAppointments + " upcoming appointment/s within the next 15 minutes. Would you like to view them?");
+        appointmentAlert.setContentText("Hello " + name + ",\n you have " + numberOfAppointments + " upcoming appointment/s within the next 15 minutes. Would you like to view them?");
         Optional<ButtonType> result = appointmentAlert.showAndWait();
         return result;
     }
@@ -25,7 +25,7 @@ public class AlertMessageController {
     public static void userHasNoAppointmentsSoonAlert(String name) {
         Alert noAppointmentAlert = new Alert(Alert.AlertType.INFORMATION);
         noAppointmentAlert.setTitle("No Upcoming Appointments");
-        noAppointmentAlert.setContentText("Hello " + name + ", you don't have any upcoming appointments within the next 15 minutes.");
+        noAppointmentAlert.setContentText("Hello " + name + ",\n you don't have any upcoming appointments within the next 15 minutes.");
         noAppointmentAlert.showAndWait();
     }
 
