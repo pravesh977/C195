@@ -53,7 +53,7 @@ public class LoggedInUserAppointmentsController {
     @FXML
     public void passUserId(int passedUserId) {
         userIdLabel.setText(String.valueOf(passedUserId));
-        System.out.println(passedUserId  + " valuuuuu");
+        System.out.println(passedUserId  + "  fsd");
     }
 
 
