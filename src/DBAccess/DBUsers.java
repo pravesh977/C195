@@ -1,15 +1,10 @@
 package DBAccess;
 
-import Interfaces.InterfaceLoginUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.PasswordField;
-import model.Contacts;
-import model.Customers;
 import model.Users;
 import utils.DBConnections;
 
-import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +33,6 @@ public class DBUsers {
     }
 
 
-    //FIX ME case sensitive login
     public static Users loginUser(String passedUserName, String passedUserPassword) {
 
         try {

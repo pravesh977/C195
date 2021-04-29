@@ -50,11 +50,7 @@ public class LoggedInUserAppointmentsController {
         System.out.println(userIdLabel.getText() + " this was not set");
     }
 
-    @FXML
-    public void passUserId(int passedUserId) {
-        userIdLabel.setText(String.valueOf(passedUserId));
-        System.out.println(passedUserId  + "  fsd");
-    }
+
 
 
 

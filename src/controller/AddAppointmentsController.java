@@ -142,7 +142,6 @@ public class AddAppointmentsController {
                 AlertMessageController.nullValueEntry();
             } else if (customersWithOverlappingAppointments.size() != 0) {
 
-
                 customersWithOverlappingAppointments.forEach((element) -> {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setTitle("Customer Appointment Overlap");

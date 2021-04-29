@@ -16,7 +16,6 @@ import java.io.IOException;
 public class MainMenuController {
     @FXML
     public void navigateToMainScreen(ActionEvent event) throws IOException {
-
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../view/main_screen.fxml"));
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -32,7 +31,6 @@ public class MainMenuController {
     /** Handles the Customers button and switches the window to Customers Screen. */
     @FXML
     public void navigateToCustomers(MouseEvent event) throws IOException {
-        //FIXME: handle user name and password entered, show error
         Parent root = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 900, 600);
@@ -44,7 +42,6 @@ public class MainMenuController {
     /** Handles the Appointments button and switches to Appointments screen */
     @FXML
     public void navigateToAppointments(MouseEvent event) throws IOException {
-        //FIXME: handle user name and password entered, show error
         Parent root = FXMLLoader.load(getClass().getResource("../view/appointments_screen.fxml"));
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -57,7 +54,6 @@ public class MainMenuController {
     /** Handles the Reports button and switches to Reports screen */
     @FXML
     public void navigateToReports(MouseEvent event) throws IOException {
-        //FIXME: handle user name and password entered, show error
         Parent root = FXMLLoader.load(getClass().getResource("../view/reports_screen.fxml"));
         Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

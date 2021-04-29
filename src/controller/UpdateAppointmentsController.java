@@ -98,17 +98,6 @@ public class UpdateAppointmentsController {
         }
     }
 
-//    public void writeNow() throws IOException {
-//        String fileName = "src/Files/dudes.txt";
-//
-//        FileWriter fwriter = new FileWriter(fileName, true);
-//
-//        PrintWriter outputFile = new PrintWriter(fwriter);
-//        outputFile.println(myText.getText());
-//        outputFile.close();
-//        System.out.println("written");
-//    }
-
     @FXML
     public void populateAppointmentForm(Appointments passedAppointment) {
         //System.out.println(passedAppointment.getTitle());
@@ -192,7 +181,7 @@ public class UpdateAppointmentsController {
             AlertMessageController.endTimeBeforeStartTimeError();
         } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
             AlertMessageController.nullValueEntry();
-        } else if (customersWithOverlappingAppointments.size() != 0 ){
+        } else if (customersWithOverlappingAppointments.size() != 0 ){//if it is not null, it means it returned something. i.e. that customer had overlapping appointments
             for(Appointments element : customersWithOverlappingAppointments) {
                 AlertMessageController.appointmentForCustomersOverlap(element);
             }

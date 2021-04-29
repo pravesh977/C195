@@ -2,7 +2,7 @@ package controller;
 
 import DBAccess.DBAppointments;
 import DBAccess.DBContacts;
-import DBAccess.DBCustomers;
+import Interfaces.InterfaceAppointmentForContacts;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -50,11 +50,17 @@ public class ScheduleContactsController {
         contactComboBox.setVisibleRowCount(5);
     }
 
+    InterfaceAppointmentForContacts appointmentsForContacts = (int selectedContact) -> {
+        ObservableList<Appointments> contactScheduleReport = DBAppointments.getAppointmentScheduleForContact(selectedContact);
+        return contactScheduleReport;
+    };
+
+
     @FXML
     public void contactComboBoxChangeAction() {
         int selectedContactId = contactComboBox.getValue().getContactId();
-        ObservableList<Appointments> contactScheduleReport = DBAppointments.getAppointmentScheduleForContact(selectedContactId);
-        contactsScheduleTable.setItems(contactScheduleReport);
+        appointmentsForContacts.appointments(selectedContactId);
+        contactsScheduleTable.setItems(appointmentsForContacts.appointments(selectedContactId));
         aptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         aptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         aptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -65,4 +71,20 @@ public class ScheduleContactsController {
         contactsScheduleTable.getSortOrder().add(aptStartCol);
     }
 
+
+    //working report for contact schedule
+//    @FXML
+//    public void contactComboBoxChangeAction() {
+//        int selectedContactId = contactComboBox.getValue().getContactId();
+//        ObservableList<Appointments> appointmentsForContactReport = DBAppointments.getAppointmentScheduleForContact(selectedContactId);
+//        contactsScheduleTable.setItems(appointmentsForContactReport);
+//        aptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+//        aptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+//        aptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+//        aptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+//        aptStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+//        aptEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+//        aptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+//        contactsScheduleTable.getSortOrder().add(aptStartCol);
+//    }
 }
