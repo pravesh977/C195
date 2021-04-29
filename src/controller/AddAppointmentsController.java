@@ -102,13 +102,13 @@ public class AddAppointmentsController {
             String description = appointmentDescriptionTextArea.getText();
             String location = appointmentLocationTextField.getText();
             String type = "";
-            if(phoneMeetingRadioButton.isSelected()) {
+            if (phoneMeetingRadioButton.isSelected()) {
                 type = "Phone Meeting";
             }
-            if(videoConferenceRadioButton.isSelected()) {
+            if (videoConferenceRadioButton.isSelected()) {
                 type = "Video Conference";
             }
-            if(inPersonRadioButton.isSelected()) {
+            if (inPersonRadioButton.isSelected()) {
                 type = "In-Person Meeting";
             }
             LocalTime startTime = startComboBox.getValue();
@@ -140,12 +140,18 @@ public class AddAppointmentsController {
                 AlertMessageController.endTimeBeforeStartTimeError();
             } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
                 AlertMessageController.nullValueEntry();
-            } else if (customersWithOverlappingAppointments.size() != 0 ){
-                for(Appointments element : customersWithOverlappingAppointments) {
-                    AlertMessageController.appointmentForCustomersOverlap(element);
-                }
-            }
-            else {
+            } else if (customersWithOverlappingAppointments.size() != 0) {
+
+
+                customersWithOverlappingAppointments.forEach((element) -> {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Customer Appointment Overlap");
+                    errorAlert.setContentText("Customer " + element.getCustomerName() +  " already has another appointment on that timeslot." + " \n Title : " + element.getTitle() + "\n Description : " + element.getDescription() + " \n Start Time : " + element.getStartTime() + " \n End Time : " + element.getEndTime());
+                    errorAlert.showAndWait();
+
+                });
+
+            } else {
                 Appointments newAppointment = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
                 DBAppointments.addNewAppointment(newAppointment);
 
@@ -157,6 +163,7 @@ public class AddAppointmentsController {
         } catch (NullPointerException e) {
             AlertMessageController.errorAddingAppointment();
         }
+    }
 
 
 //        System.out.println("title is " + title);
@@ -169,7 +176,7 @@ public class AddAppointmentsController {
 //        System.out.println(appointmentEndDateAndTime + " is the end localdatetime");
 //        System.out.println(startTimestamp + " is the start timestamp");
 //        System.out.println(endTimestamp + " is the end timestamp");
-    }
+
 
     /**
      * Handles the cancel button and returns to the appointment screen.
@@ -183,4 +190,13 @@ public class AddAppointmentsController {
         stage.setScene(scene);
         stage.show();
     }
+
+
 }
+
+// replaced by the lam exp
+//                for(Appointments element : customersWithOverlappingAppointments) {
+//                    AlertMessageController.appointmentForCustomersOverlap(element);
+//                }
+
+

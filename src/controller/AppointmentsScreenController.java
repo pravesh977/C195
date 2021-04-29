@@ -49,6 +49,9 @@ public class AppointmentsScreenController {
     private TableColumn<Appointments, String> appCustomerCol;
 
     @FXML
+    private TableColumn<Appointments, Integer> appCustomerIdCol;
+
+    @FXML
     private TableColumn<Appointments, String> appUserCol;
 
     @FXML
@@ -80,6 +83,9 @@ public class AppointmentsScreenController {
 
     @FXML
     private TableColumn<Appointments, String> monthlyAppCustomerCol;
+
+    @FXML
+    private TableColumn<Appointments, Integer> monthlyAppCustomerIdCol;
 
     @FXML
     private TableColumn<Appointments, String> monthlyAppUserCol;
@@ -115,6 +121,9 @@ public class AppointmentsScreenController {
     private TableColumn<Appointments, String> weeklyAppCustomerCol;
 
     @FXML
+    private TableColumn<Appointments, Integer> weeklyAppCustomerIdCol;
+
+    @FXML
     private TableColumn<Appointments, String> weeklyAppUserCol;
 
     /** Initializing all three tables with all, monthly, and weekly appointment data*/
@@ -132,6 +141,7 @@ public class AppointmentsScreenController {
         appStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         appEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         appCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        appCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         appUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         fullAppointmentTable.getSortOrder().add(appIdCol);
 
@@ -146,6 +156,7 @@ public class AppointmentsScreenController {
         monthlyAppStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         monthlyAppEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         monthlyAppCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        monthlyAppCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyAppUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         monthlyAppointmentTable.getSortOrder().add(monthlyAppStartCol);
 
@@ -160,6 +171,7 @@ public class AppointmentsScreenController {
         weeklyAppStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         weeklyAppEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         weeklyAppCustomerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        weeklyAppCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         weeklyAppUserCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         weeklyAppointmentTable.getSortOrder().add(weeklyAppStartCol);
     }

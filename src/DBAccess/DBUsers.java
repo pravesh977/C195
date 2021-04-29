@@ -1,5 +1,6 @@
 package DBAccess;
 
+import Interfaces.InterfaceLoginUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.PasswordField;
@@ -37,11 +38,11 @@ public class DBUsers {
     }
 
 
-    //Original
+    //FIX ME case sensitive login
     public static Users loginUser(String passedUserName, String passedUserPassword) {
 
         try {
-            String sql = "SELECT * FROM users WHERE User_Name = ? AND Password = ?";
+            String sql = "SELECT * FROM users WHERE BINARY User_Name = ? AND BINARY Password = ?";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ps.setString(1, passedUserName);
             ps.setString(2, passedUserPassword);
@@ -59,4 +60,27 @@ public class DBUsers {
         }
         return null;
     }
+//
+//    InterfaceLoginUser loginUser = (userName, passWord) -> {
+//        try {
+//            String sql = "SELECT * FROM users WHERE User_Name = ? AND Password = ?";
+//            PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+//            ps.setString(1, userName);
+//            ps.setString(2, passWord);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()) {
+//                int userId = rs.getInt("User_ID");
+//                String uName = rs.getString("User_Name");
+//                String uPassword = rs.getString("Password");
+//                Users matchedUser = new Users(userId, uName, uPassword);
+//                return matchedUser;
+//            }
+//        } catch(SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    };
+
+
 }
