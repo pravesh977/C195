@@ -10,9 +10,15 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Class that handles all the alerts and has static methods that can be used wherever alerts are needed.
+ */
 public class AlertMessageController {
 
-    /** Displays an alert saying there is an appointment starting for the user within 15 minutes of login time.*/
+    /**
+     * Displays an alert saying there is an appointment starting for the user within 15 minutes of login time.
+     * It asks the user if they want to see the appointments coming soon.
+     */
     public static Optional<ButtonType> userHasAppointmentsSoonAlert(String name, int numberOfAppointments) {
         Alert appointmentAlert = new Alert(Alert.AlertType.CONFIRMATION);
         appointmentAlert.setTitle("Upcoming Appointments");
@@ -21,7 +27,9 @@ public class AlertMessageController {
         return result;
     }
 
-    /** Displays an alert saying there are no appointments starting for the user within 15 minutes of login time.*/
+    /**
+     * Displays an alert saying there are no appointments starting for the user within 15 minutes of login time.
+     */
     public static void userHasNoAppointmentsSoonAlert(String name) {
         Alert noAppointmentAlert = new Alert(Alert.AlertType.INFORMATION);
         noAppointmentAlert.setTitle("No Upcoming Appointments");
@@ -29,7 +37,10 @@ public class AlertMessageController {
         noAppointmentAlert.showAndWait();
     }
 
-    /** Gets appointments that are within 15 minutes and shows an alert with details of them*/
+    /**
+     * Gets appointments that are within 15 minutes and shows an alert with details of them. The method accepts appointments as input parameter and displays the
+     * the details of the coming up appointments in alert window.
+     */
     public static void displaySoonAppointments(Appointments passedAppointment) {
         Alert comingAppointment = new Alert(Alert.AlertType.INFORMATION);
         comingAppointment.setTitle(passedAppointment.getTitle());
@@ -38,11 +49,13 @@ public class AlertMessageController {
         comingAppointment.showAndWait();
     }
 
-    /** Displays an error alert in french or english depending on user's OS language when login fails*/
+    /**
+     * Displays an error alert in french or english depending on user's OS language when login fails.
+     */
     public static void failedLoginError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
-        if(Locale.getDefault().getLanguage().equals("fr")) {
+        if (Locale.getDefault().getLanguage().equals("fr")) {
             errorAlert.setTitle(resBundle.getString("loginfailed"));
             errorAlert.setContentText(resBundle.getString("checkcredentials"));
         } else {
@@ -52,6 +65,9 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
+    /**
+     * Shows an alert saying the customer cannot be deleted because they have appointments and asks the users if they want to delete the appointments first.
+     */
     public static Optional<ButtonType> customerHasAppointmentsError() {
         Alert deleteCustomersAppointmentAlert = new Alert(Alert.AlertType.CONFIRMATION);
         deleteCustomersAppointmentAlert.setTitle("Customer has appointments");
@@ -60,6 +76,9 @@ public class AlertMessageController {
         return result;
     }
 
+    /**
+     * Displays alert confirming with the user if they really want to delete the customer or appointment.
+     */
     public static Optional<ButtonType> deleteWarning() {
         Alert confirmDeleteAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmDeleteAlert.setTitle("Confirm Delete");
@@ -68,31 +87,39 @@ public class AlertMessageController {
         return result;
     }
 
-    /** Non selection error when trying to update or delete appointments or customers*/
+    /**
+     * Displays a message saying the customer has been deleted.
+     */
     public static void deleteSuccessfulWithoutAppointment(int deletedCustomerId) {
         Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
         errorAlert.setTitle("Delete Successful");
-        errorAlert.setContentText("The customer with Id " + deletedCustomerId +" has been deleted");
+        errorAlert.setContentText("The customer with Id " + deletedCustomerId + " has been deleted");
         errorAlert.showAndWait();
     }
 
-    /** Non selection error when trying to update or delete appointments or customers*/
+    /**
+     * Displays a message saying the appointment delete has been successful.
+     */
     public static void appointmentDeleteConfirmation(int deletedAppointmentId) {
         Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
         errorAlert.setTitle("Delete Successful");
-        errorAlert.setContentText("The appointment with Id " + deletedAppointmentId +" has been deleted");
+        errorAlert.setContentText("The appointment with Id " + deletedAppointmentId + " has been deleted");
         errorAlert.showAndWait();
     }
 
-    /** Non selection error when trying to update or delete appointments or customers*/
+    /**
+     * Shows alert saying the associated appointments have been deleted and the user may now delete the customer.
+     */
     public static void deleteAppointmentSuccessfulNowDeleteCustomer(int deletedCustomerId) {
         Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
         errorAlert.setTitle("Delete Successful");
-        errorAlert.setContentText("All appointments for customer with id " + deletedCustomerId +" have been deleted. Please delete the customer now");
+        errorAlert.setContentText("All appointments for customer with id " + deletedCustomerId + " have been deleted. Please delete the customer now");
         errorAlert.showAndWait();
     }
 
-    /** Non selection error when trying to update or delete appointments or customers*/
+    /**
+     * Displays an alert error when attempting to click the update button without selecting an item first.
+     */
     public static void nonSelectionErrorUpdate() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Nothing selected");
@@ -100,7 +127,9 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
-    /** Non selection error when trying to update or delete appointments or customers*/
+    /**
+     * Displays an alert error when attempting to click the delete button without selecting an item first.
+     */
     public static void nonSelectionErrorDelete() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Nothing selected");
@@ -108,6 +137,9 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
+    /**
+     * Displays an alert error when users attempts to schedule an appointment outside of the business ours.
+     */
     public static void businessClosedError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Business Closed");
@@ -115,6 +147,9 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
+    /**
+     * Displays an alert error when users attempts to schedule an appointment that has a ending time before the starting time.
+     */
     public static void endTimeBeforeStartTimeError() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("End Time before Start Time");
@@ -122,14 +157,20 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
-    /** Error caused by overlapping appointment times for customer*/
+    /**
+     * Displays error alert caused by overlapping appointment times for customer. The overlapping Appointments objects are passed as parameter
+     * and the details of the appointments are displayed in alert window.
+     */
     public static void appointmentForCustomersOverlap(Appointments passedAppointment) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Customer Appointment Overlap");
-        errorAlert.setContentText("Customer " + passedAppointment.getCustomerName() +  " already has another appointment on that timeslot." + " \n Title : " + passedAppointment.getTitle() + "\n Description : " + passedAppointment.getDescription() + " \n Start Time : " + passedAppointment.getStartTime() + " \n End Time : " + passedAppointment.getEndTime());
+        errorAlert.setContentText("Customer " + passedAppointment.getCustomerName() + " already has another appointment on that timeslot." + " \n Title : " + passedAppointment.getTitle() + "\n Description : " + passedAppointment.getDescription() + " \n Start Time : " + passedAppointment.getStartTime() + " \n End Time : " + passedAppointment.getEndTime());
         errorAlert.showAndWait();
     }
 
+    /**
+     * Displays an error when attempting to add appointment with some null values.
+     */
     public static void errorAddingAppointment() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error adding appointment");
@@ -137,10 +178,13 @@ public class AlertMessageController {
         errorAlert.showAndWait();
     }
 
+    /**
+     * Displays an error when attempting to add appointments or customers with some null values.
+     */
     public static void nullValueEntry() {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Null Entered");
-        errorAlert.setContentText("Field cannot be empty");
+        errorAlert.setContentText("Fields cannot be empty");
         errorAlert.showAndWait();
     }
 

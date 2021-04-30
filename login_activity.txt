@@ -1046,3 +1046,27 @@ Successful login by username: test
 Activity on: 2021-04-29T03:54:51.031872Z UTC.
 111SUCCESS
 ------------------------------------------------------
+Unsuccessful login attempted by username: derier
+Activity on: 2021-04-29T20:05:58.632999Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-29T20:06:02.990377Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-29T20:46:28.554984Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-29T20:46:48.536215Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-29T20:47:56.306481Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-04-29T20:50:29.375066Z UTC.
+111SUCCESS
+------------------------------------------------------

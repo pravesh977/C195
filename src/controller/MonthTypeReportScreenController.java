@@ -7,6 +7,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointments;
 
+/**
+ * Controller class that handles the month_type_report_screen.fxml file.
+ */
 public class MonthTypeReportScreenController {
 
     @FXML
@@ -21,6 +24,9 @@ public class MonthTypeReportScreenController {
     @FXML
     private TableColumn<Appointments, Integer> occurrencesColReport;
 
+    /**
+     * Initializes the table with data grouped by month and type.
+     */
     @FXML
     public void initialize() {
         monthTypeReportTable.setItems(DBAppointments.getAppointmentsByTypeAndMonth());

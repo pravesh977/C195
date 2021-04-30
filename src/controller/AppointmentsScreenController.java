@@ -16,6 +16,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * Controller class that handles appointments_screen.fxml file.
+ */
 public class AppointmentsScreenController {
 
     @FXML
@@ -126,7 +129,9 @@ public class AppointmentsScreenController {
     @FXML
     private TableColumn<Appointments, String> weeklyAppUserCol;
 
-    /** Initializing all three tables with all, monthly, and weekly appointment data*/
+    /**
+     * Initializing all three tables with all, monthly, and weekly appointment data.
+     */
     @FXML
     public void initialize() {
 
@@ -176,51 +181,58 @@ public class AppointmentsScreenController {
         weeklyAppointmentTable.getSortOrder().add(weeklyAppStartCol);
     }
 
+
+    /**
+     * Handles the Home button and sends user to the main screen.
+     */
     @FXML
     public void navigateToMainScreen(MouseEvent event) throws IOException {
-        //FIXME: handle user name and password entered, show error
         Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
     }
 
-
-    @FXML
-    public void tab1selected() {
+//
+//    @FXML
+//    public void tab1selected() {
 //        if (tab1.isSelected()) {
 //            tab1label.setText(String.valueOf(tab1value));
 //            System.out.println(tab1value);
 //            tab1value++;
 //        }
+//
+//    }
+//
+//    @FXML
+//    public void tab2selected() {
+//
+//    }
+//
+//    @FXML
+//    public void tab3selected() {
+//
+//    }
 
-    }
-
-    @FXML
-    public void tab2selected() {
-
-    }
-
-    @FXML
-    public void tab3selected() {
-
-    }
-
-    /** Opens a new form to let users create a new appointment*/
+    /**
+     * Opens a new form to let users create a new appointment.
+     */
     public void openAddAppointmentForm(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/add_appointments_screen.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Add Appointment Form");
         stage.setScene(scene);
         stage.show();
     }
 
-    /** opens a form to let users update selected appointment by passing selected appointment to updateAppointmentController*/
+    /**
+     * opens a form to let users update selected appointment by passing selected appointment to updateAppointmentController.
+     */
     public void openUpdateAppointmentForm(MouseEvent event) throws IOException {
-        if(fullAppointmentTable.getSelectionModel().getSelectedItem() != null) {
+        if (fullAppointmentTable.getSelectionModel().getSelectedItem() != null) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/update_appointments_screen.fxml"));
             loader.load();
@@ -234,17 +246,18 @@ public class AppointmentsScreenController {
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
             stage.show();
-        }
-        else {
+        } else {
             AlertMessageController.nonSelectionErrorUpdate();
         }
     }
 
-    /** Deletes the selected appointment from the appointment table by passing it to DBAppointments*/
+    /**
+     * Deletes the selected appointment from the appointment table by passing it to DBAppointments.
+     */
     public void deleteAppointment() {
-        if(fullAppointmentTable.getSelectionModel().getSelectedItem() != null) {
+        if (fullAppointmentTable.getSelectionModel().getSelectedItem() != null) {
             Optional<ButtonType> answer = AlertMessageController.deleteWarning();
-            if(answer.isPresent() && answer.get() == ButtonType.OK) {
+            if (answer.isPresent() && answer.get() == ButtonType.OK) {
                 Appointments selectedAppointment = fullAppointmentTable.getSelectionModel().getSelectedItem();
                 DBAppointments.deleteSelectedAppointment(selectedAppointment.getAppointmentId());
                 initialize();
@@ -255,7 +268,9 @@ public class AppointmentsScreenController {
         }
     }
 
-    /** Handles the exit button*/
+    /**
+     * Handles the exit button and closes the application.
+     */
     @FXML
     public void handleExit() {
         System.exit(0);

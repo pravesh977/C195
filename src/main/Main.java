@@ -25,8 +25,11 @@ import java.util.TimeZone;
 
 public class Main extends Application {
 
+    /**
+     * Loads the main starting page of the application.
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("../view/login_welcome_screen.fxml"));
         primaryStage.setTitle("Appointment Software");
         primaryStage.setScene(new Scene(root));
@@ -35,6 +38,10 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Starting point of the application. As soon as the application starts, start a connection with the database. Close
+     * the connection after the app closes.
+     */
     public static void main(String[] args) {
         DBConnections.startConnection();
 //
@@ -70,8 +77,6 @@ public class Main extends Application {
 //        System.out.println(now.with(fieldUS, 7)); // 2015-02-08 (Monday)
 
 
-
-
 //        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
 //        LocalDate firstDayOfThisWeek = LocalDate.now ( localZoneId ).with ( DayOfWeek.MONDAY );
 //
@@ -89,7 +94,7 @@ public class Main extends Application {
 //        System.out.println(Locale.getDefault());
         //System.out.println(Instant.now() + "CURRENT UtC TIME Is");
         //TimeZoneConversion.utcToLocal();
-    //    TimeZoneConversion.displayUtc();
+        //    TimeZoneConversion.displayUtc();
 //        DBAppointments.getStartUTC();
 //        System.out.println(LocalDateTime.now() + " is the localdatetime");
 //        System.out.println(ZonedDateTime.now() + " is the zonedatetime");

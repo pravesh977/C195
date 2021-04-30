@@ -23,6 +23,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+/**
+ * Controller class that handles login_welcome_screen.fxml.
+ */
 public class LoginWelcomeScreenController {
 
     @FXML
@@ -47,12 +50,16 @@ public class LoginWelcomeScreenController {
     private Label loginZoneLabel;
 
 
+    /**
+     * Initializes the login form with the current zone/location of the user, loads resource bundle based on the user's OS
+     * language setting.
+     */
     @FXML
     public void initialize() {
         ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
         loginZoneLabel.setText(String.valueOf(localZoneId));
         ResourceBundle resBundle = ResourceBundle.getBundle("lng", Locale.getDefault());
-        if(Locale.getDefault().getLanguage().equals("fr")) {
+        if (Locale.getDefault().getLanguage().equals("fr")) {
             usernameLabel.setText(resBundle.getString("username"));
             passwordLabel.setText(resBundle.getString("password"));
             loginButton.setText(resBundle.getString("login"));
@@ -61,7 +68,8 @@ public class LoginWelcomeScreenController {
     }
 
     /**
-     * Handles the login button and switches the window to main page.
+     * Handles the login button and switches the window to main page. Also checks for login fails, and records/logs to
+     * the login_activity.txt.
      */
     @FXML
     public void loginClicked(MouseEvent event) throws IOException {
@@ -95,15 +103,15 @@ public class LoginWelcomeScreenController {
             outputFile.println("111SUCCESS");
 
             ObservableList<Appointments> appointmentsForLoggedInUserSoon = DBAppointments.getAppointmentsForLoggedInUser(loggedUser.getUserId());
-            if(appointmentsForLoggedInUserSoon.size() == 0) {
+            if (appointmentsForLoggedInUserSoon.size() == 0) {
                 //System.out.println("no appointments");
                 AlertMessageController.userHasNoAppointmentsSoonAlert(loggedUser.getUserName());
             } else {
                 //System.out.println("you got appointments");
                 Optional<ButtonType> answer = AlertMessageController.userHasAppointmentsSoonAlert(loggedUser.getUserName(), appointmentsForLoggedInUserSoon.size());
-                if(answer.isPresent() && answer.get() == ButtonType.OK) {
+                if (answer.isPresent() && answer.get() == ButtonType.OK) {
 
-                    for( Appointments element : appointmentsForLoggedInUserSoon) {
+                    for (Appointments element : appointmentsForLoggedInUserSoon) {
                         AlertMessageController.displaySoonAppointments(element);
                     }
 
@@ -139,6 +147,9 @@ public class LoginWelcomeScreenController {
 
     }
 
+    /**
+     * Handles the exit button and quits the application.
+     */
     @FXML
     public void exitApplication() {
         System.exit(0);

@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.*;
 
+/**
+ * Controller class that handles the add_appointments_screen.fxml file.
+ */
 public class AddAppointmentsController {
 
     @FXML
@@ -95,12 +98,17 @@ public class AddAppointmentsController {
         }
     }
 
+    /**
+     * Handles the save button and saves the new appointment in the database. The form collects input values from the save
+     * appointment form and saves it into a Appointments object and then passes it to the DBAppointments.addNewAppointment method where
+     * the object is then saved to the database.
+     */
     public void saveNewAppointment(MouseEvent event) throws IOException {
         try {
             int id = 0;
-            String title = appointmentTitleTextField.getText();
-            String description = appointmentDescriptionTextArea.getText();
-            String location = appointmentLocationTextField.getText();
+            String title = appointmentTitleTextField.getText().trim();
+            String description = appointmentDescriptionTextArea.getText().trim();
+            String location = appointmentLocationTextField.getText().trim();
             String type = "";
             if (phoneMeetingRadioButton.isSelected()) {
                 type = "Phone Meeting";
@@ -129,7 +137,7 @@ public class AddAppointmentsController {
             int contactId = contactComboBox.getValue().getContactId();
             String contactName = contactComboBox.getValue().getContactName();
 
-            //Creating an observable list to see if it returns null or values
+            //Creating an observable list to see if it returns null or values, if it returns some values, then the customer has overlapping appointments
             ObservableList<Appointments> customersWithOverlappingAppointments = DBAppointments.getAppointmentsForCustomers(appointmentStartDateAndTime, appointmentEndDateAndTime, customerId);
 
             int conversionResult = TimeZoneConversion.estConversion(appointmentStartDateAndTime, appointmentEndDateAndTime);
@@ -140,16 +148,15 @@ public class AddAppointmentsController {
                 AlertMessageController.endTimeBeforeStartTimeError();
             } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
                 AlertMessageController.nullValueEntry();
-            } else if (customersWithOverlappingAppointments.size() != 0) {
+            } else if (customersWithOverlappingAppointments.size() != 0) { //if there are some values returned, then show alert and give details of the overlapping appointments
 
                 customersWithOverlappingAppointments.forEach((element) -> {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setTitle("Customer Appointment Overlap");
-                    errorAlert.setContentText("Customer " + element.getCustomerName() +  " already has another appointment on that timeslot." + " \n Title : " + element.getTitle() + "\n Description : " + element.getDescription() + " \n Start Time : " + element.getStartTime() + " \n End Time : " + element.getEndTime());
+                    errorAlert.setContentText("Customer " + element.getCustomerName() + " already has another appointment on that timeslot. Here are the details." + " \n Title : " + element.getTitle() + "\n Description : " + element.getDescription() + " \n Start Time : " + element.getStartTime() + " \n End Time : " + element.getEndTime());
                     errorAlert.showAndWait();
 
                 });
-
             } else {
                 Appointments newAppointment = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
                 DBAppointments.addNewAppointment(newAppointment);

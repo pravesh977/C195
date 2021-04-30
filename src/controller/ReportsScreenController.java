@@ -17,8 +17,14 @@ import model.Appointments;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Controller class that handles reports_screen.fxml file.
+ */
 public class ReportsScreenController {
 
+    /**
+     * Opens the month and type report screen.
+     */
     @FXML
     public void appointmentsReportButtonClicked() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/month_type_report_screen.fxml"));
@@ -29,6 +35,9 @@ public class ReportsScreenController {
         stage.show();
     }
 
+    /**
+     * Opens the schedule for contacts report screen.
+     */
     @FXML
     public void scheduleForContactsReportClicked() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/schedule_contacts.fxml"));
@@ -39,6 +48,9 @@ public class ReportsScreenController {
         stage.show();
     }
 
+    /**
+     * Opens the login information report screen.
+     */
     @FXML
     public void loginInformationButtonClicked() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/login_information_report_screen.fxml"));
@@ -49,17 +61,22 @@ public class ReportsScreenController {
         stage.show();
     }
 
+    /**
+     * Handles the home button and navigates to the main screen.
+     */
     @FXML
     public void navigateToMainScreen(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Main Menu");
         stage.setScene(scene);
         stage.show();
     }
 
-    /** Handles the exit button*/
+    /**
+     * Handles the exit button and closes the application.
+     */
     @FXML
     public void handleExit() {
         System.exit(0);

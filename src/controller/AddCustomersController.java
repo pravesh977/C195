@@ -22,6 +22,9 @@ import utils.DBConnections;
 
 import java.io.IOException;
 
+/**
+ * Controller class that handles the add_customers_screen.fxml file.
+ */
 public class AddCustomersController {
 
     Stage stage;
@@ -46,7 +49,9 @@ public class AddCustomersController {
     private ComboBox<Countries> countryComboBox;
 
 
-    /** Initializes the opening form and sets ComboBox with database values*/
+    /**
+     * Initializes the add customer form and sets ComboBox with database values (Country and Division).
+     */
     @FXML
     public void initialize() {
         divisionComboBox.getItems().clear();
@@ -61,19 +66,24 @@ public class AddCustomersController {
 
     }
 
-    /** Handles the save button and sends data to to the database.*/
+    /**
+     * Handles the save button and sends data to to the database. After clicking save button, a new
+     * Customers object is created which is then sent to DBCustomers.addNewCustomer method where it is then saved
+     * to the database.
+     */
     @FXML
     public void saveNewCustomerClicked(MouseEvent event) throws IOException {
-        int id = 0;
-        String name = nameTextField.getText();
-        String address = addressTextField.getText();
-        String postal = postalTextField.getText();
-        String phone = phoneTextField.getText();
-        //System.out.println("text field name is " + name);
-        int divisionId = divisionComboBox.getValue().getDivisionId();
-        String divisionName = divisionComboBox.getValue().getDivisionName();
-        Customers newCustomer = new Customers(id, name, address, postal, phone, divisionId, divisionName);
-        DBCustomers.addNewCustomer(newCustomer);
+        try {
+            int id = 0;
+            String name = nameTextField.getText().trim();
+            String address = addressTextField.getText().trim();
+            String postal = postalTextField.getText().trim();
+            String phone = phoneTextField.getText().trim();
+            //System.out.println("text field name is " + name);
+            int divisionId = divisionComboBox.getValue().getDivisionId();
+            String divisionName = divisionComboBox.getValue().getDivisionName();
+            Customers newCustomer = new Customers(id, name, address, postal, phone, divisionId, divisionName);
+            DBCustomers.addNewCustomer(newCustomer);
 
 //        FXMLLoader loader = new FXMLLoader();
 //        loader.setLocation(getClass().getResource("../view/customers_screen.fxml"));
@@ -82,20 +92,18 @@ public class AddCustomersController {
 //        CustomersScreenController custCont = loader.getController();
 //        custCont.loadCustomerTable();
 
-    //use this to close if not modal
+            //use this to close if not modal
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
+        } catch (NullPointerException exp) {
+            AlertMessageController.nullValueEntry();
+        }
 
         //use this to close the modal when using modal
 //        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
 //        stage.close();
-
-
-
-
-
 
 
         //add alerter saying add successful and button to add appointment in the same alerter
@@ -114,7 +122,9 @@ public class AddCustomersController {
 //        }
     }
 
-    /** Tracks the change in Country ComboBox values and filters divisions values in divisions ComboBox*/
+    /**
+     * Tracks the change in Country ComboBox values and filters divisions values in divisions ComboBox.
+     */
     public void countryComboBoxValueChange() {
         divisionComboBox.getItems().clear();
 //        System.out.println(countryComboBox.getValue());
@@ -133,13 +143,14 @@ public class AddCustomersController {
      */
     @FXML
     public void cancelSaveButtonClicked(MouseEvent event) throws IOException {
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        stage.close();
+//        use this if add form is a modal to close the modal on cancel
+//        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+//        stage.close();
 
-//        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-//        scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
-//        stage.setScene(new Scene(scene));
-//        stage.show();
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
 }

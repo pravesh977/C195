@@ -10,11 +10,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that interacts with the database with regards to query with Countries.
+ */
 public class DBCountries {
 
     //private static ObservableList<Countries> countriesList = FXCollections.observableArrayList();
 
-    /** Method to return a list of all Countries from the database*/
+    /**
+     * Method to return a list of all Countries from the database.
+     */
     public static ObservableList<Countries> getAllCountries() {
         ObservableList<Countries> countriesList = FXCollections.observableArrayList();
         try {
@@ -22,7 +27,7 @@ public class DBCountries {
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int countryId = rs.getInt("Country_ID");
                 String countryName = rs.getString("Country");
                 Countries C = new Countries(countryId, countryName);

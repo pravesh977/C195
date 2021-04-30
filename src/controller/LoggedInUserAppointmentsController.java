@@ -14,44 +14,41 @@ import java.time.LocalDateTime;
 
 public class LoggedInUserAppointmentsController {
 
-    @FXML
-    private TableView<Appointments> loggedInUserAppointmentsTable;
-
-    @FXML
-    private TableColumn<Appointments, Integer> loggedInUserIdCol;
-
-    @FXML
-    private TableColumn<Appointments, String> loggedInUserTitleCol;
-
-    @FXML
-    private TableColumn<Appointments, String> loggedInUserDescriptionCol;
-
 //    @FXML
-//    private TableColumn<Appointments, Integer> loggedInUserStartingInCol;
-
-    @FXML
-    private TableColumn<Appointments, String> loggedInUserCustomerCol;
-
-    @FXML
-    private TableColumn<Appointments, String> loggedInUserContactCol;
-
-    @FXML
-    private TableColumn<Appointments, LocalDateTime> loggedInUserStartCol;
-
-    @FXML
-    private TableColumn<Appointments, LocalDateTime> loggedInUserEndCol;
-
-    @FXML
-    private Label userIdLabel;
-
-    @FXML
-    public void initialize(int id) {
-        userIdLabel.setText(String.valueOf(id));
-        System.out.println(userIdLabel.getText() + " this was not set");
-    }
-
-
-
+//    private TableView<Appointments> loggedInUserAppointmentsTable;
+//
+//    @FXML
+//    private TableColumn<Appointments, Integer> loggedInUserIdCol;
+//
+//    @FXML
+//    private TableColumn<Appointments, String> loggedInUserTitleCol;
+//
+//    @FXML
+//    private TableColumn<Appointments, String> loggedInUserDescriptionCol;
+//
+////    @FXML
+////    private TableColumn<Appointments, Integer> loggedInUserStartingInCol;
+//
+//    @FXML
+//    private TableColumn<Appointments, String> loggedInUserCustomerCol;
+//
+//    @FXML
+//    private TableColumn<Appointments, String> loggedInUserContactCol;
+//
+//    @FXML
+//    private TableColumn<Appointments, LocalDateTime> loggedInUserStartCol;
+//
+//    @FXML
+//    private TableColumn<Appointments, LocalDateTime> loggedInUserEndCol;
+//
+//    @FXML
+//    private Label userIdLabel;
+//
+//    @FXML
+//    public void initialize(int id) {
+//        userIdLabel.setText(String.valueOf(id));
+//        System.out.println(userIdLabel.getText() + " this was not set");
+//    }
 
 
 //    @FXML
@@ -98,9 +95,6 @@ public class LoggedInUserAppointmentsController {
 //        loggedInUserStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
 //        loggedInUserEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
 //    }
-
-
-
 
 
 }

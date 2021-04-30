@@ -6,46 +6,52 @@ import java.sql.Time;
 import java.time.*;
 import java.util.TimeZone;
 
+/**
+ * Class that handles time zone conversions.
+ */
 public class TimeZoneConversion {
 
-    public static void utcToLocalConversion(LocalDateTime passedDateTime) {
-        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        ZoneId utcZoneId = ZoneId.of("UTC");
-        LocalTime passedLocalTime = passedDateTime.toLocalTime();
-        LocalDate passedLocalDate = passedDateTime.toLocalDate();
+//    public static void utcToLocalConversion(LocalDateTime passedDateTime) {
+//        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//        ZoneId utcZoneId = ZoneId.of("UTC");
+//        LocalTime passedLocalTime = passedDateTime.toLocalTime();
+//        LocalDate passedLocalDate = passedDateTime.toLocalDate();
+//
+//        //utcPassedZDT has the passed zoneddatetime values stored as database's zoneddatetime values
+//        ZonedDateTime utcPassedZDT = ZonedDateTime.of(passedLocalDate, passedLocalTime, localZoneId);
+//        System.out.println(utcPassedZDT + " start time");
+//    }
 
-        //utcPassedZDT has the passed zoneddatetime values stored as database's zoneddatetime values
-        ZonedDateTime utcPassedZDT = ZonedDateTime.of(passedLocalDate, passedLocalTime, localZoneId);
-        System.out.println(utcPassedZDT + " start time");
-    }
+
+//    Method to convert form's time to UTC and returns the utc for database entry for start appointment
+
+//    public static LocalDateTime localToUtcConversion(LocalDateTime passedDateTime) {
+//        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//        ZoneId utcZoneId = ZoneId.of("UTC");
+//        LocalTime passedLocalTime = passedDateTime.toLocalTime();
+//        LocalDate passedLocalDate = passedDateTime.toLocalDate();
+//
+//        //localPassedZDT has the passed zoneddatetime values stored as local machine's zoneddatetime values
+//        ZonedDateTime localPassedZDT = ZonedDateTime.of(passedLocalDate, passedLocalTime, localZoneId);
+//
+//        //UTC instant: passed value is converted to UTC for database
+//        Instant localToUtcInstant = localPassedZDT.toInstant();
+//
+//        //converting Instant to ZoneDateTime Version
+//        ZonedDateTime utcEquivalent = localToUtcInstant.atZone(utcZoneId);
+//
+//        //Converting everything to LocalDateTime For Appointment Object
+//        LocalDate localToUtcDate = utcEquivalent.toLocalDate();
+//        LocalTime localToUtcTime = utcEquivalent.toLocalTime();
+//        LocalDateTime convertedFinalUtc = LocalDateTime.of(localToUtcDate, localToUtcTime);
+//
+//        return convertedFinalUtc;
+//
+//    }
 
     /**
-     * Method to convert form's time to UTC and returns the utc for database entry for start appointment
+     * Converts the local date time to EST and returns int based on whether appointment scheduled time were in between office hours.
      */
-    public static LocalDateTime localToUtcConversion(LocalDateTime passedDateTime) {
-        ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        ZoneId utcZoneId = ZoneId.of("UTC");
-        LocalTime passedLocalTime = passedDateTime.toLocalTime();
-        LocalDate passedLocalDate = passedDateTime.toLocalDate();
-
-        //localPassedZDT has the passed zoneddatetime values stored as local machine's zoneddatetime values
-        ZonedDateTime localPassedZDT = ZonedDateTime.of(passedLocalDate, passedLocalTime, localZoneId);
-
-        //UTC instant: passed value is converted to UTC for database
-        Instant localToUtcInstant = localPassedZDT.toInstant();
-
-        //converting Instant to ZoneDateTime Version
-        ZonedDateTime utcEquivalent = localToUtcInstant.atZone(utcZoneId);
-
-        //Converting everything to LocalDateTime For Appointment Object
-        LocalDate localToUtcDate = utcEquivalent.toLocalDate();
-        LocalTime localToUtcTime = utcEquivalent.toLocalTime();
-        LocalDateTime convertedFinalUtc = LocalDateTime.of(localToUtcDate, localToUtcTime);
-
-        return convertedFinalUtc;
-
-    }
-
     public static int estConversion(LocalDateTime appointmentStartTime, LocalDateTime appointmentEndTime) {
 
         ZoneId estZoneId = ZoneId.of("America/New_York");
@@ -83,11 +89,10 @@ public class TimeZoneConversion {
 //        LocalDateTime estLocalDateTime = LocalDateTime.of(estDate, estTime);
 //        System.out.println(estLocalDateTime  + " est converted to LocalDateTime");
         //localDT.isBefore()
-        if(appointmentStartLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isBefore(estOfficeStartZDT) || appointmentStartLocalZDT.isAfter(estOfficeEndZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT)) {
+        if (appointmentStartLocalZDT.isBefore(estOfficeStartZDT) || appointmentEndLocalZDT.isBefore(estOfficeStartZDT) || appointmentStartLocalZDT.isAfter(estOfficeEndZDT) || appointmentEndLocalZDT.isAfter(estOfficeEndZDT)) {
             //System.out.println("business is closed");
             return 1;
-        }
-        else {
+        } else {
             //System.out.println("business is open");
             return 2;
         }

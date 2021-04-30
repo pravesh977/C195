@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Controller class that handles login_information_report_screen.fxml.
+ */
 public class LoginInformationReportController {
 
     @FXML
@@ -16,6 +19,10 @@ public class LoginInformationReportController {
     @FXML
     private Label failedLoginsLabel;
 
+    /**
+     * Initializes the Login Information Report screen by reading the login_activity.txt, counts the successful or failed
+     * login attempts and displays it.
+     */
     @FXML
     public void initialize() throws IOException {
         String filename = "login_activity.txt";
@@ -39,8 +46,7 @@ public class LoginInformationReportController {
 //        System.out.println("total failed attempts: " + failedAttempts);
             successfulLoginsLabel.setText(String.valueOf(successfulAttempts));
             failedLoginsLabel.setText(String.valueOf(failedAttempts));
-        }
-        else {
+        } else {
             System.out.println("file does not exist, please quit");
         }
     }

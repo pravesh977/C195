@@ -20,6 +20,9 @@ import model.FirstLevelDivisions;
 
 import java.io.IOException;
 
+/**
+ * Controller class that handles the update_customers_screen.fxml file.
+ */
 public class UpdateCustomersController {
 
     Stage stage;
@@ -46,6 +49,9 @@ public class UpdateCustomersController {
     @FXML
     private ComboBox<Countries> countryComboBox;
 
+    /**
+     * Initializes the Division and Country ComboBoxes with all values from the database.
+     */
     @FXML
     public void initialize() {
         //divisionComboBox.getItems().clear();
@@ -59,6 +65,9 @@ public class UpdateCustomersController {
         countryComboBox.setVisibleRowCount(5);
     }
 
+    /**
+     * Receives the selected customers object to update and then populates the fields and ComboBoxes with the object values.
+     */
     @FXML
     public void populateUpdateForm(Customers passedCustomer) {
         customerIdLabel.setText(String.valueOf(passedCustomer.getCustomerId()));
@@ -71,7 +80,7 @@ public class UpdateCustomersController {
         System.out.println(passedDivisionId);
         int countryId = 0;
 
-        for(FirstLevelDivisions element : divisionComboBox.getItems()) {
+        for (FirstLevelDivisions element : divisionComboBox.getItems()) {
             if (passedDivisionId == element.getDivisionId()) {
                 //System.out.println("match found at " + element.getDivisionId());
                 countryId = element.getCountryId();
@@ -81,7 +90,7 @@ public class UpdateCustomersController {
             }
         }
 
-        for(Countries element : countryComboBox.getItems()) {
+        for (Countries element : countryComboBox.getItems()) {
             if (countryId == element.getCountryId()) {
                 countryComboBox.getSelectionModel().select(element);
                 break;
@@ -106,7 +115,6 @@ public class UpdateCustomersController {
 //        }
 
 
-
 //        int position = -1;
 //        for(int i = 0; i < divisionComboBox.getItems().size(); i++) {
 //            position++;
@@ -122,12 +130,15 @@ public class UpdateCustomersController {
 //        System.out.println(position);
     }
 
+    /**
+     * Updates the changes to the selected customer by creating a new object by getting the values from the form fields.
+     */
     public void updateCustomer(MouseEvent event) throws IOException {
         int id = Integer.parseInt(customerIdLabel.getText());
-        String name = nameTextField.getText();
-        String address = addressTextField.getText();
-        String postal = postalTextField.getText();
-        String phone = phoneTextField.getText();
+        String name = nameTextField.getText().trim();
+        String address = addressTextField.getText().trim();
+        String postal = postalTextField.getText().trim();
+        String phone = phoneTextField.getText().trim();
         //System.out.println("text field name is " + name);
         int divisionId = divisionComboBox.getValue().getDivisionId();
         String divisionName = divisionComboBox.getValue().getDivisionName();
@@ -147,7 +158,9 @@ public class UpdateCustomersController {
         stage.show();
     }
 
-    /** Tracks the change in Country ComboBox values and filters divisions values in divisions ComboBox*/
+    /**
+     * Tracks the change in Country ComboBox values and filters divisions values in divisions ComboBox.
+     */
     public void countryComboBoxValueChange() {
         divisionComboBox.getItems().clear();
         int selectedCountryId = countryComboBox.getValue().getCountryId();
@@ -156,6 +169,9 @@ public class UpdateCustomersController {
         divisionComboBox.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Cancels the update and returns users to the main customer screen.
+     */
     @FXML
     public void cancelUpdateButton(MouseEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

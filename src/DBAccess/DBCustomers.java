@@ -14,12 +14,17 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
+/**
+ * Class that interacts with the database with regards to query with Customers.
+ */
 public class DBCustomers {
 
     //This was duplicating everything in my customer list?
     //private static ObservableList<Customers> customersList = FXCollections.observableArrayList();
 
-    /** Method to look up customers using customer Id.*/
+    /**
+     * Queries the database and gets a list of all Customers.
+     */
     public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> customersList = FXCollections.observableArrayList();
         try {
@@ -27,7 +32,7 @@ public class DBCustomers {
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("Customer_ID");
                 String customerName = rs.getString("Customer_Name");
                 String customerAddress = rs.getString("Address");
@@ -39,13 +44,15 @@ public class DBCustomers {
                 customersList.add(customers);
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return customersList;
     }
 
-    /** Method to look up customers using customer Id.*/
+    /**
+     * Method to look up customers using customer Id.
+     */
     public static ObservableList<Customers> lookupCustomers(int customerId) {
 //        for(Customers element : customersList) {
 //            if (element.getCustomerId() == customerId) {
@@ -61,7 +68,7 @@ public class DBCustomers {
             ps.setInt(1, customerId);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("Customer_ID");
                 String customerName = rs.getString("Customer_Name");
                 String customerAddress = rs.getString("Address");
@@ -76,12 +83,15 @@ public class DBCustomers {
                 return searchedSingleCustomer;
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * Method to look up customers using customer Name that returns a list of matching customers object in an observable list.
+     */
     public static ObservableList<Customers> lookupCustomers(String customerName) {
         ObservableList<Customers> matchedCustomers = FXCollections.observableArrayList();
 
@@ -97,7 +107,7 @@ public class DBCustomers {
             ps.setString(1, customerName + "%");
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("Customer_ID");
                 String foundCustomerName = rs.getString("Customer_Name");
                 String customerAddress = rs.getString("Address");
@@ -109,13 +119,16 @@ public class DBCustomers {
                 matchedCustomers.add(customer);
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return matchedCustomers;
 
     }
 
+    /**
+     * Receives the Customer object from other classes and then saves it to the database.
+     */
     public static void addNewCustomer(Customers passedCustomer) {
         try {
             String sql = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
@@ -124,15 +137,18 @@ public class DBCustomers {
             ps.setString(2, passedCustomer.getCustomerAddress());
             ps.setString(3, passedCustomer.getCustomerPostalCode());
             ps.setString(4, passedCustomer.getCustomerPhone());
-            ps.setInt(5,passedCustomer.getDivisionId());
+            ps.setInt(5, passedCustomer.getDivisionId());
 
             ps.executeUpdate();
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Receives the customer object to be updated and then updates in the database based on the customer Id.
+     */
     public static void updateCustomer(Customers passedCustomer) {
         try {
             String sql = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
@@ -141,16 +157,20 @@ public class DBCustomers {
             ps.setString(2, passedCustomer.getCustomerAddress());
             ps.setString(3, passedCustomer.getCustomerPostalCode());
             ps.setString(4, passedCustomer.getCustomerPhone());
-            ps.setInt(5,passedCustomer.getDivisionId());
+            ps.setInt(5, passedCustomer.getDivisionId());
             ps.setInt(6, passedCustomer.getCustomerId());
 
             ps.executeUpdate();
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Deletes the customer based on the customer ID. If customer has appointment's it can't be deleted. Displays an error message
+     * and on confirmation with the user, deletes all appointments for the customer.
+     */
     public static void deleteCustomer(int customerId) {
         try {
             String sql = "DELETE FROM customers WHERE Customer_ID = ?";
@@ -159,10 +179,9 @@ public class DBCustomers {
             try {
                 ps.executeUpdate();
                 AlertMessageController.deleteSuccessfulWithoutAppointment(customerId);
-            }
-            catch(SQLIntegrityConstraintViolationException e) {
+            } catch (SQLIntegrityConstraintViolationException e) {
                 Optional<ButtonType> answer = AlertMessageController.customerHasAppointmentsError();
-                if(answer.isPresent() && answer.get() == ButtonType.OK) {
+                if (answer.isPresent() && answer.get() == ButtonType.OK) {
                     try {
                         String sqli = "DELETE FROM appointments WHERE Customer_ID = ?";
                         PreparedStatement psi = DBConnections.getConnection().prepareStatement(sqli);
@@ -171,15 +190,13 @@ public class DBCustomers {
                         psi.executeUpdate();
                         //Delete successful
                         AlertMessageController.deleteAppointmentSuccessfulNowDeleteCustomer(customerId);
-                    }
-                    catch(SQLException ex) {
+                    } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
                 }
             }
 
-        }
-        catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

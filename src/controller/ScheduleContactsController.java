@@ -14,7 +14,11 @@ import model.Contacts;
 
 import java.time.LocalDateTime;
 
+/**
+ * Controller class that handles schedule_contacts.fxml file.
+ */
 public class ScheduleContactsController {
+
     @FXML
     private TableView<Appointments> contactsScheduleTable;
 
@@ -42,7 +46,9 @@ public class ScheduleContactsController {
     @FXML
     private ComboBox<Contacts> contactComboBox;
 
-
+    /**
+     * Initializes the ComboBox with all the contacts available from the database.
+     */
     @FXML
     public void initialize() {
         contactComboBox.setItems(DBContacts.getAllContacts());
@@ -55,7 +61,9 @@ public class ScheduleContactsController {
         return contactScheduleReport;
     };
 
-
+    /**
+     * Handles the change in ComboBox change and loads all the appointments for the chosen contact.
+     */
     @FXML
     public void contactComboBoxChangeAction() {
         int selectedContactId = contactComboBox.getValue().getContactId();

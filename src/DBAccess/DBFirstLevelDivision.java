@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that interacts with the database with regards to query with First Level Division.
+ */
 public class DBFirstLevelDivision {
 
 //    private static ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
@@ -17,7 +20,9 @@ public class DBFirstLevelDivision {
 
     //private static ComboBox<FirstLevelDivisions> allFirstLevelDivisions = new ComboBox();
 
-    /** Returns all first level divisions.*/
+    /**
+     * Returns all first level divisions in an ObservableList.
+     */
     public static ObservableList<FirstLevelDivisions> getAllFirstLevelDivisions() {
         //public static ComboBox<FirstLevelDivisions> getAllFirstLevelDivisions() {
 
@@ -28,7 +33,7 @@ public class DBFirstLevelDivision {
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("Division_ID");
                 String name = rs.getString("Division");
                 int countryId = rs.getInt("COUNTRY_ID");
@@ -41,7 +46,9 @@ public class DBFirstLevelDivision {
         return allFirstLevelDivisions;
     }
 
-    /** Returns selected first level divisions by using the Country Id.*/
+    /**
+     * Returns selected/filtered first level divisions by using the Country Id.
+     */
     public static ObservableList<FirstLevelDivisions> getFilteredDivisions(int countryComboBoxValue) {
         ObservableList<FirstLevelDivisions> filteredFirstLevelDivisions = FXCollections.observableArrayList();
 
@@ -52,7 +59,7 @@ public class DBFirstLevelDivision {
             ps.setInt(1, countryComboBoxValue);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int id = rs.getInt("Division_ID");
                 String name = rs.getString("Division");
                 int countryId = rs.getInt("COUNTRY_ID");

@@ -12,8 +12,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * Controller class that handles main_menu.fxml file.
+ */
 public class MainMenuController {
+
+    /**
+     * Handles the home button and sends users to the main screen.
+     */
     @FXML
     public void navigateToMainScreen(ActionEvent event) throws IOException {
         try {
@@ -23,27 +29,31 @@ public class MainMenuController {
             stage.setTitle("Main Screen");
             stage.setScene(scene);
             stage.show();
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
 
         }
     }
 
-    /** Handles the Customers button and switches the window to Customers Screen. */
+    /**
+     * Handles the Customers button and switches the window to Customers Screen.
+     */
     @FXML
     public void navigateToCustomers(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/customers_screen.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, 900, 600);
         stage.setTitle("Customers");
         stage.setScene(scene);
         stage.show();
     }
 
-    /** Handles the Appointments button and switches to Appointments screen */
+    /**
+     * Handles the Appointments button and switches to Appointments screen.
+     */
     @FXML
     public void navigateToAppointments(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/appointments_screen.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Appointments");
         stage.setScene(scene);
@@ -51,18 +61,22 @@ public class MainMenuController {
     }
 
 
-    /** Handles the Reports button and switches to Reports screen */
+    /**
+     * Handles the Reports button and switches to Reports screen.
+     */
     @FXML
     public void navigateToReports(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../view/reports_screen.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Reports");
         stage.setScene(scene);
         stage.show();
     }
 
-    /** Handles the exit button*/
+    /**
+     * Handles the exit button and quits the application.
+     */
     @FXML
     public void handleExit() {
         System.exit(0);

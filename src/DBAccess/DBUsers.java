@@ -9,8 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that interacts with the database with regards to query with Users.
+ */
 public class DBUsers {
 
+    /**
+     * Returns all users from the database.
+     */
     public static ObservableList<Users> getAllUsers() {
         ObservableList<Users> allUsers = FXCollections.observableArrayList();
         try {
@@ -18,14 +24,14 @@ public class DBUsers {
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int userId = rs.getInt("User_ID");
                 String userName = rs.getString("User_Name");
                 String userPassword = rs.getString("Password");
                 Users user = new Users(userId, userName, userPassword);
                 allUsers.add(user);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -33,6 +39,9 @@ public class DBUsers {
     }
 
 
+    /**
+     * Returns the user object for the user logged in.
+     */
     public static Users loginUser(String passedUserName, String passedUserPassword) {
 
         try {
@@ -42,14 +51,14 @@ public class DBUsers {
             ps.setString(2, passedUserPassword);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int userId = rs.getInt("User_ID");
                 String userName = rs.getString("User_Name");
                 String userPassword = rs.getString("Password");
                 Users matchedUser = new Users(userId, userName, userPassword);
                 return matchedUser;
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;

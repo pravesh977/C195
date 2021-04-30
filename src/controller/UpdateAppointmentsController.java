@@ -25,6 +25,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Controller class that handles the update_appointments_screen.fxml file.
+ */
 public class UpdateAppointmentsController {
 
     @FXML
@@ -70,6 +73,9 @@ public class UpdateAppointmentsController {
     private RadioButton inPersonRadioButton;
 
 
+    /**
+     * Initializes the contacts, customer, user ComboBox with data from the database.
+     */
     @FXML
     public void initialize() {
         //for contacts ComboBox
@@ -88,16 +94,19 @@ public class UpdateAppointmentsController {
         userComboBox.setVisibleRowCount(5);
 
         //for appointment time ComboBox
-        LocalTime start = LocalTime.of(00,0);
-        LocalTime end = LocalTime.of(23,30);
+        LocalTime start = LocalTime.of(00, 0);
+        LocalTime end = LocalTime.of(23, 30);
 
-        while(start.isBefore(end.plusSeconds(1))) {
+        while (start.isBefore(end.plusSeconds(1))) {
             startComboBox.getItems().add(start);
             endComboBox.getItems().add(start);
             start = start.plusMinutes(15);
         }
     }
 
+    /**
+     * Receives the selected appointment object to update and then populates the fields and ComboBoxes with the object values.
+     */
     @FXML
     public void populateAppointmentForm(Appointments passedAppointment) {
         //System.out.println(passedAppointment.getTitle());
@@ -105,13 +114,13 @@ public class UpdateAppointmentsController {
         appointmentDescriptionTextArea.setText(passedAppointment.getDescription());
         appointmentLocationTextField.setText(passedAppointment.getLocation());
         //appointmentTypeTextField.setText(passedAppointment.getType());
-        if(passedAppointment.getType().equals("Phone Meeting")) {
+        if (passedAppointment.getType().equals("Phone Meeting")) {
             phoneMeetingRadioButton.fire();
         }
         if (passedAppointment.getType().equals("Video Conference")) {
             videoConferenceRadioButton.fire();
         }
-        if(passedAppointment.getType().equals("In-Person Meeting")){
+        if (passedAppointment.getType().equals("In-Person Meeting")) {
             inPersonRadioButton.fire();
         }
         appointmentDatePicker.setValue(passedAppointment.getStartTime().toLocalDate());
@@ -122,40 +131,42 @@ public class UpdateAppointmentsController {
         int passedCustomerId = passedAppointment.getCustomerId();
         int passedUserId = passedAppointment.getUserId();
 
-        for(Contacts element : contactComboBox.getItems()) {
-            if(passedContactId == element.getContactId()) {
+        for (Contacts element : contactComboBox.getItems()) {
+            if (passedContactId == element.getContactId()) {
                 contactComboBox.getSelectionModel().select(element);
             }
         }
 
-        for(Customers element : customerComboBox.getItems()) {
-            if(passedCustomerId == element.getCustomerId()) {
+        for (Customers element : customerComboBox.getItems()) {
+            if (passedCustomerId == element.getCustomerId()) {
                 customerComboBox.getSelectionModel().select(element);
             }
         }
 
-        for(Users element : userComboBox.getItems()) {
-            if(passedUserId == element.getUserId()) {
+        for (Users element : userComboBox.getItems()) {
+            if (passedUserId == element.getUserId()) {
                 userComboBox.getSelectionModel().select(element);
             }
         }
     }
 
-    /** Updates the changes to the selected appointment.*/
+    /**
+     * Updates the changes to the selected appointment by creating a new object by getting the values from the form fields.
+     */
     @FXML
     public void updateChangesToAppointment(MouseEvent event) throws IOException {
         int id = Integer.parseInt(appointmentIdLabel.getText());
-        String title = appointmentTitleTextField.getText();
-        String description = appointmentDescriptionTextArea.getText();
-        String location = appointmentLocationTextField.getText();
+        String title = appointmentTitleTextField.getText().trim();
+        String description = appointmentDescriptionTextArea.getText().trim();
+        String location = appointmentLocationTextField.getText().trim();
         String type = "";
-        if(phoneMeetingRadioButton.isSelected()) {
+        if (phoneMeetingRadioButton.isSelected()) {
             type = "Phone Meeting";
         }
-        if(videoConferenceRadioButton.isSelected()) {
+        if (videoConferenceRadioButton.isSelected()) {
             type = "Video Conference";
         }
-        if(inPersonRadioButton.isSelected()) {
+        if (inPersonRadioButton.isSelected()) {
             type = "In-Person Meeting";
         }
         LocalTime startTime = startComboBox.getValue();
@@ -181,12 +192,11 @@ public class UpdateAppointmentsController {
             AlertMessageController.endTimeBeforeStartTimeError();
         } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
             AlertMessageController.nullValueEntry();
-        } else if (customersWithOverlappingAppointments.size() != 0 ){//if it is not null, it means it returned something. i.e. that customer had overlapping appointments
-            for(Appointments element : customersWithOverlappingAppointments) {
+        } else if (customersWithOverlappingAppointments.size() != 0) {//if it is not null, it means it returned something. i.e. that customer had overlapping appointments
+            for (Appointments element : customersWithOverlappingAppointments) {
                 AlertMessageController.appointmentForCustomersOverlap(element);
             }
-        }
-        else {
+        } else {
 
             Appointments updatedAppointmentObject = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
             DBAppointments.updateSelectedAppointment(updatedAppointmentObject);
@@ -198,7 +208,9 @@ public class UpdateAppointmentsController {
         }
     }
 
-    /** Cancels the update and returns users to the main appointment screen.*/
+    /**
+     * Cancels the update and returns users to the main appointment screen.
+     */
     @FXML
     public void cancelUpdateAppointment(MouseEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

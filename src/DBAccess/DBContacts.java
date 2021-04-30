@@ -9,9 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class that interacts with the database with regards to query with Contacts.
+ */
 public class DBContacts {
 
-    /** Gets a list of all contacts from the database and creates an observables list of contact objects*/
+    /**
+     * Gets a list of all contacts from the database and creates an observables list of contact objects.
+     */
     public static ObservableList<Contacts> getAllContacts() {
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
         try {
@@ -19,14 +24,14 @@ public class DBContacts {
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 int contactId = rs.getInt("Contact_ID");
                 String contactName = rs.getString("Contact_Name");
                 String contactEmail = rs.getString("Email");
                 Contacts contact = new Contacts(contactId, contactName, contactEmail);
                 allContacts.add(contact);
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

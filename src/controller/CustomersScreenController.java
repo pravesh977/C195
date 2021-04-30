@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 
+/**
+ * Controller class that handles the customers_screen.fxml file.
+ */
 public class CustomersScreenController {
     Stage stage;
     Parent scene;
@@ -69,6 +72,9 @@ public class CustomersScreenController {
         stage.show();
     }
 
+    /**
+     * Initializes the customers table with all the customers from the database.
+     */
     public void initialize() {
         customersTable.setItems(DBCustomers.getAllCustomers());
         customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -82,6 +88,9 @@ public class CustomersScreenController {
     }
 
 
+    /**
+     * Method that reloads the customers table whenever required.
+     */
     public void loadCustomerTable() {
         customersTable.setItems(DBCustomers.getAllCustomers());
         customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -95,7 +104,7 @@ public class CustomersScreenController {
 
 
     /**
-     * Handles the search button and the enter button for search customer.
+     * Handles the search button and the enter button for search customer by using either ID or Name.
      */
     @FXML
     public void searchCustomer() {
@@ -137,12 +146,14 @@ public class CustomersScreenController {
         searchCustomerTextField.clear();
     }
 
-    /***/
+    /**
+     * Opens a form to let users add a new customer.
+     */
     @FXML
     public void openAddForm(MouseEvent event) throws IOException {
         //this opens a new window for a form, i will use a modal instead below
         Parent root = FXMLLoader.load(getClass().getResource("../view/add_customers_screen.fxml"));
-        Stage stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setTitle("Add customer");
         stage.setScene(scene);
@@ -163,6 +174,9 @@ public class CustomersScreenController {
 //        stage.show();
     }
 
+    /**
+     * Opens a form and passes the selected customer object to the form via controller communication.
+     */
     @FXML
     public void updateCustomerButtonClicked(MouseEvent event) throws IOException {
         if (customersTable.getSelectionModel().getSelectedItem() != null) {
@@ -184,6 +198,9 @@ public class CustomersScreenController {
         }
     }
 
+    /**
+     * Gets the selected customer object from the table, passes its id to the DBCustomers and delete that customer.
+     */
     @FXML
     public void deleteSelectedCustomer() {
         if (customersTable.getSelectionModel().getSelectedItem() != null) {
@@ -199,7 +216,7 @@ public class CustomersScreenController {
     }
 
     /**
-     * Handles the exit button
+     * Handles the exit button and quits the application.
      */
     @FXML
     public void handleExit() {
