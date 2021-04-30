@@ -131,7 +131,7 @@ public class CustomersScreenController {
             String searchedCustomerString = searchCustomerTextField.getText();
             ObservableList<Customers> searchedCustomersList = DBCustomers.lookupCustomers(searchedCustomerString);
             if (searchedCustomersList.size() == 0) {
-                System.out.println("alert no customers found"); //FIX ME
+                //System.out.println("alert no customers found"); //FIX ME
             } else {
                 customersTable.setItems(searchedCustomersList);
                 customersColumnId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -141,7 +141,7 @@ public class CustomersScreenController {
                 customersColumnPhone.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
                 customersColumnFirstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
             }
-            System.out.println("search called");
+            //System.out.println("search called");
         }
         searchCustomerTextField.clear();
     }

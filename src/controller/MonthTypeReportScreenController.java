@@ -33,5 +33,6 @@ public class MonthTypeReportScreenController {
         monthColReport.setCellValueFactory(new PropertyValueFactory<>("month"));
         typeColReport.setCellValueFactory(new PropertyValueFactory<>("type"));
         occurrencesColReport.setCellValueFactory(new PropertyValueFactory<>("occurrences"));
+        monthTypeReportTable.getSortOrder().add(monthColReport);
     }
 }

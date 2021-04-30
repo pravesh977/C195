@@ -195,26 +195,26 @@ public class AppointmentsScreenController {
         stage.show();
     }
 
-//
-//    @FXML
-//    public void tab1selected() {
+
+    @FXML
+    public void tab1selected() {
 //        if (tab1.isSelected()) {
 //            tab1label.setText(String.valueOf(tab1value));
 //            System.out.println(tab1value);
 //            tab1value++;
 //        }
-//
-//    }
-//
-//    @FXML
-//    public void tab2selected() {
-//
-//    }
-//
-//    @FXML
-//    public void tab3selected() {
-//
-//    }
+
+    }
+
+    @FXML
+    public void tab2selected() {
+
+    }
+
+    @FXML
+    public void tab3selected() {
+
+    }
 
     /**
      * Opens a new form to let users create a new appointment.

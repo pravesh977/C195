@@ -56,6 +56,9 @@ public class ScheduleContactsController {
         contactComboBox.setVisibleRowCount(5);
     }
 
+
+    /** The lambda expression provided here is in isolation from other classes. In future case, we can just use this expression
+     * to get the ObservableList of contactScheduleReport without having to define the method again.*/
     InterfaceAppointmentForContacts appointmentsForContacts = (int selectedContact) -> {
         ObservableList<Appointments> contactScheduleReport = DBAppointments.getAppointmentScheduleForContact(selectedContact);
         return contactScheduleReport;
@@ -79,20 +82,4 @@ public class ScheduleContactsController {
         contactsScheduleTable.getSortOrder().add(aptStartCol);
     }
 
-
-    //working report for contact schedule
-//    @FXML
-//    public void contactComboBoxChangeAction() {
-//        int selectedContactId = contactComboBox.getValue().getContactId();
-//        ObservableList<Appointments> appointmentsForContactReport = DBAppointments.getAppointmentScheduleForContact(selectedContactId);
-//        contactsScheduleTable.setItems(appointmentsForContactReport);
-//        aptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-//        aptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-//        aptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-//        aptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-//        aptStartCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-//        aptEndCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-//        aptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-//        contactsScheduleTable.getSortOrder().add(aptStartCol);
-//    }
 }

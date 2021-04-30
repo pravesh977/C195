@@ -103,7 +103,8 @@ public class AddAppointmentsController {
     /**
      * Handles the save button and saves the new appointment in the database. The form collects input values from the save
      * appointment form and saves it into a Appointments object and then passes it to the DBAppointments.addNewAppointment method where
-     * the object is then saved to the database.
+     * the object is then saved to the database. The method also uses Lambda expression to iterate through the overlapping appointments
+     * making the code easier and cleaner to read instead of using for loop.
      */
     public void saveNewAppointment(MouseEvent event) throws IOException {
         try {

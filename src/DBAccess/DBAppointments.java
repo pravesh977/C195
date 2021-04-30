@@ -79,8 +79,9 @@ public class DBAppointments {
             LocalDate localD = LocalDate.now();
             LocalTime zeroHoursAndMinutes = LocalTime.of(0, 00);
             LocalDateTime zeroLocalDT = LocalDateTime.of(localD, zeroHoursAndMinutes);
+            LocalDateTime finalHourDT = LocalDateTime.of(localD, LocalTime.of(23,59));
             LocalDateTime firstDayOfMonth = zeroLocalDT.with(TemporalAdjusters.firstDayOfMonth());
-            LocalDateTime lastDayOfMonth = zeroLocalDT.with(TemporalAdjusters.lastDayOfMonth());
+            LocalDateTime lastDayOfMonth = finalHourDT.with(TemporalAdjusters.lastDayOfMonth());
 
             String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE Start BETWEEN ? AND ?";
             PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
@@ -125,11 +126,12 @@ public class DBAppointments {
         try {
             LocalDate localD = LocalDate.now();
             LocalTime zeroHoursAndMinutes = LocalTime.of(0, 00);
+            LocalDateTime finalHourDT = LocalDateTime.of(localD, LocalTime.of(23,59));
             LocalDateTime zeroLocalDT = LocalDateTime.of(localD, zeroHoursAndMinutes);
             TemporalField fieldLOCAL = WeekFields.of(Locale.getDefault()).dayOfWeek();
             LocalDateTime firstDayOfWeek = zeroLocalDT.with(fieldLOCAL, 1); // Current week's first day
             //LocalDateTime lastDayPlusOne = zeroLocalDT.with(fieldLOCAL, 7).plusDays(1); // Current week's last day
-            LocalDateTime lastDayOfWeek = zeroLocalDT.with(fieldLOCAL, 7); // Current week's last day
+            LocalDateTime lastDayOfWeek = finalHourDT.with(fieldLOCAL, 7); // Current week's last day
 
 
             String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE Start BETWEEN ? AND ?";
@@ -361,6 +363,52 @@ public class DBAppointments {
             ps.setTimestamp(3, Timestamp.valueOf(passedEndDT));
             ps.setTimestamp(4, Timestamp.valueOf(passedStartDT));
             ps.setTimestamp(5, Timestamp.valueOf(passedEndDT));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                LocalDateTime startLocalDateTime = start.toLocalDateTime();
+                Timestamp end = rs.getTimestamp("End");
+                LocalDateTime endLocalDateTime = end.toLocalDateTime();
+                int customerId = rs.getInt("Customer_ID");
+                String customerName = rs.getString("Customer_Name");
+                int userId = rs.getInt("User_ID");
+                String userName = rs.getString("User_Name");
+                int contactId = rs.getInt("Contact_ID");
+                String contactName = rs.getString("Contact_Name");
+                Appointments appointment = new Appointments(appointmentId, title, description, location, type, startLocalDateTime, endLocalDateTime, customerId, customerName, userId, userName, contactId, contactName);
+                appointmentsForCustomers.add(appointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointmentsForCustomers;
+    }
+
+    /**
+     * This method has input parameters that gets start and end appointment times. If, in the database, there are any appointments(Start and End) that fall
+     * between the new appointment attempting to be created, return an observable list of those overlapping appointments. (Then notify/display
+     * to the user saying customer already has appointments at this time).
+     */
+    public static ObservableList<Appointments> getOverlappingAppointmentsForCustomersMinusSelectedAppointment(LocalDateTime passedStartDT, LocalDateTime passedEndDT, int passedCustomerId, int passedAppointmentId) {
+        ObservableList<Appointments> appointmentsForCustomers = FXCollections.observableArrayList();
+        try {
+            //String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?))";
+            //String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start > ? AND Start < ?) OR (End > ? AND End < ?))";
+            String sql = "SELECT Appointment_ID, Title, Description, Location, Type, Start, End, appointments.Customer_ID, appointments.User_ID, appointments.Contact_ID, Contact_Name, User_Name, Customer_Name FROM appointments INNER JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID INNER JOIN users ON appointments.User_ID = users.User_ID INNER JOIN customers on appointments.Customer_ID = customers.Customer_ID WHERE customers.Customer_ID = ? AND ((Start >= ? AND Start < ?) OR (End > ? AND End <= ?)) AND NOT Appointment_ID = ?";
+            PreparedStatement ps = DBConnections.getConnection().prepareStatement(sql);
+            ps.setInt(1, passedCustomerId);
+            ps.setTimestamp(2, Timestamp.valueOf(passedStartDT));
+            ps.setTimestamp(3, Timestamp.valueOf(passedEndDT));
+            ps.setTimestamp(4, Timestamp.valueOf(passedStartDT));
+            ps.setTimestamp(5, Timestamp.valueOf(passedEndDT));
+            ps.setInt(6, passedAppointmentId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

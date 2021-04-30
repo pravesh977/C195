@@ -91,7 +91,7 @@ public class LoginWelcomeScreenController {
             outputFile.println("999FAIL");
             userPasswordField.clear();
         } else {
-            System.out.println(loggedUser.getUserId() + " is the id" + loggedUser.getUserName() + " is the username");
+            //System.out.println(loggedUser.getUserId() + " is the id" + loggedUser.getUserName() + " is the username");
             Parent root = FXMLLoader.load(getClass().getResource("../view/main_menu.fxml"));
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);

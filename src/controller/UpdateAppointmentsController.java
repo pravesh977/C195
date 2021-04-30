@@ -155,7 +155,7 @@ public class UpdateAppointmentsController {
      */
     @FXML
     public void updateChangesToAppointment(MouseEvent event) throws IOException {
-        int id = Integer.parseInt(appointmentIdLabel.getText());
+        int appointmentId = Integer.parseInt(appointmentIdLabel.getText());
         String title = appointmentTitleTextField.getText().trim();
         String description = appointmentDescriptionTextArea.getText().trim();
         String location = appointmentLocationTextField.getText().trim();
@@ -182,7 +182,7 @@ public class UpdateAppointmentsController {
         String contactName = contactComboBox.getValue().getContactName();
 
         //Creating an observable list to see if it returns null or values
-        ObservableList<Appointments> customersWithOverlappingAppointments = DBAppointments.getAppointmentsForCustomers(appointmentStartDateAndTime, appointmentEndDateAndTime, customerId);
+        ObservableList<Appointments> overlappingAppointmentsForCustomer = DBAppointments.getOverlappingAppointmentsForCustomersMinusSelectedAppointment(appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, appointmentId);
 
         int conversionResult = TimeZoneConversion.estConversion(appointmentStartDateAndTime, appointmentEndDateAndTime);
 
@@ -192,13 +192,13 @@ public class UpdateAppointmentsController {
             AlertMessageController.endTimeBeforeStartTimeError();
         } else if ((title.trim().isEmpty()) || (description.trim().isEmpty()) || (location.trim().isEmpty()) || (type.trim().isEmpty())) {
             AlertMessageController.nullValueEntry();
-        } else if (customersWithOverlappingAppointments.size() != 0) {//if it is not null, it means it returned something. i.e. that customer had overlapping appointments
-            for (Appointments element : customersWithOverlappingAppointments) {
+        } else if (overlappingAppointmentsForCustomer.size() != 0) {//if it is not null, it means it returned something. i.e. that customer had overlapping appointments
+            for (Appointments element : overlappingAppointmentsForCustomer) {
                 AlertMessageController.appointmentForCustomersOverlap(element);
             }
         } else {
 
-            Appointments updatedAppointmentObject = new Appointments(id, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
+            Appointments updatedAppointmentObject = new Appointments(appointmentId, title, description, location, type, appointmentStartDateAndTime, appointmentEndDateAndTime, customerId, customerName, userId, userName, contactId, contactName);
             DBAppointments.updateSelectedAppointment(updatedAppointmentObject);
 
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
