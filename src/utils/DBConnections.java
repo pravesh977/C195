@@ -9,19 +9,32 @@ import java.sql.SQLException;
  * A seperate class that handles database connections using jdbc.
  */
 public class DBConnections {
+//    private static final String protocol = "jdbc";
+//    private static final String vendorName = ":mysql:";
+//    private static final String ipAddress = "//wgudb.ucertify.com:3306/";
+//    private static final String dbName = "WJ05Zvi";
+//
+//
+//    private static final String jdbcURL = protocol + vendorName + ipAddress + dbName + "?connectionTimeZone=SERVER";
+//
+//    private static final String MYSQLJDBCDriver = "com.mysql.cj.jdbc.Driver";
+//
+//    private static final String username = "U05Zvi";
+//    private static final String password = "53688651099";
+
+    //for aws
     private static final String protocol = "jdbc";
     private static final String vendorName = ":mysql:";
-    private static final String ipAddress = "//wgudb.ucertify.com:3306/";
-    private static final String dbName = "WJ05Zvi";
+    private static final String ipAddress = "//appointmentapplicationdbinstance.cn29lqrv98dx.us-east-2.rds.amazonaws.com/";
+    private static final String dbName = "appointmentwgudb";
 
 
     private static final String jdbcURL = protocol + vendorName + ipAddress + dbName + "?connectionTimeZone=SERVER";
 
-    //    private static final String MYSQLJDBCDriver = "../../External Libraries/mysql-connector-java-8.0.23/";
     private static final String MYSQLJDBCDriver = "com.mysql.cj.jdbc.Driver";
 
-    private static final String username = "U05Zvi";
-    private static final String password = "53688651099";
+    private static final String username = "appointment977";
+    private static final String password = "aws977wgu";
 
     private static Connection conn = null;
 

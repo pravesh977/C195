@@ -30,7 +30,7 @@
                   <Font name="Arial" size="15.0" />
                </font>
             </TextField>
-            <TextArea fx:id="appointmentDescriptionTextArea" prefHeight="64.0" prefWidth="265.0" promptText="Meetup with technical team to discuss new features that needs to be included in the new website." />
+            <TextArea fx:id="appointmentDescriptionTextArea" prefHeight="64.0" prefWidth="265.0" promptText="Meetup with technical team to discuss new features that needs to be included in the new website."/>
             <TextField fx:id="appointmentLocationTextField" promptText="Room 204 at Corn PlazaRoom 204 at Corn Plaza">
                <font>
                   <Font name="Arial" size="15.0" />

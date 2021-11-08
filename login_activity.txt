@@ -1134,3 +1134,39 @@ Successful login by username: test
 Activity on: 2021-04-30T14:06:03.892670Z UTC.
 111SUCCESS
 ------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-05-18T15:17:05.125432Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-05-18T15:20:34.929316Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-05-18T15:20:37.832387Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-06-12T02:56:12.334214Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: admin
+Activity on: 2021-09-03T09:53:21.674289Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: admin
+Activity on: 2021-09-03T09:53:24.676482Z UTC.
+111SUCCESS
+------------------------------------------------------
+Unsuccessful login attempted by username: test
+Activity on: 2021-11-08T20:44:06.591118Z UTC.
+999FAIL
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-11-08T20:44:08.620630Z UTC.
+111SUCCESS
+------------------------------------------------------
+Successful login by username: test
+Activity on: 2021-11-08T21:42:42.202189Z UTC.
+111SUCCESS
+------------------------------------------------------
